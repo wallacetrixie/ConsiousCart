@@ -7,20 +7,26 @@ const Login = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // useNavigate for route redirection
+  const navigate = useNavigate();
 
   const toggleAuthMode = () => {
     setIsRegister(!isRegister);
     setError('');
     setUsername('');
     setPassword('');
+    setConfirmPassword('');
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const endpoint = isRegister ? '/register' : '/login';
+    if (isRegister && password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
+    const endpoint = isRegister ? '/register' : '/login';
     try {
       const response = await axios.post(`http://localhost:5000${endpoint}`, {
         username,
@@ -28,13 +34,13 @@ const Login = () => {
       });
 
       if (response.data.success) {
-        localStorage.setItem('token', response.data.token); // Store the token
-        navigate('/tasks'); // Redirect to tasks page
+        localStorage.setItem('token', response.data.token);
+        navigate('/tasks');
       } else {
-        setError(response.data.message || 'Invalid username or password. Please try again.');
+        setError(response.data.message || 'Invalid username or password.');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid username or password. Please try again.');
+      setError(err.response?.data?.message || 'Server error, please try again.');
     }
   };
 
@@ -57,6 +63,15 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          {isRegister && (
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          )}
           <button type="submit">{isRegister ? 'Register' : 'Login'}</button>
           {error && <p className="error">{error}</p>}
           <p onClick={toggleAuthMode} className="toggle-link">

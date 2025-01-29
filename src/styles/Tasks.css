@@ -1,0 +1,209 @@
+.tasks-container {
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f0f4f8, #ffffff);
+  min-height: 100vh;
+}
+
+.welcome-message {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+.delete-btn{
+  background-color: rgb(245, 58, 58);
+}
+.delete-btn:hover{
+  background-color: rgb(247, 15, 15);
+}
+
+.description {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+.primary-btn {
+  padding: 12px 25px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.primary-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+}
+.modal.show {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+.event-form {
+  background: #ffffff;
+  border: 1px solid #e3e4e8;
+  border-radius: 15px;
+  max-width: 450px;
+  margin: 20px auto;
+  padding: 25px;
+  position: relative;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.event-form:hover {
+  transform: translateY(-5px);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form-header h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  width:30px;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fc3e3e;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  
+ background-color:white;
+}
+
+label {
+  display: block;
+  margin: 12px 0 8px;
+  font-weight: 600;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+input {
+  width: 95%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: #f9f9f9;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4caf50;
+  background: #ffffff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button.primary-btn {
+  width: 100%;
+  font-weight: 600;
+}
+
+.event-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.event-form form button {
+  margin-top: 10px;
+}
+.tasks-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.welcome-message {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.primary-btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.primary-btn:hover {
+  background-color: #0056b3;
+}
+
+.event-details {
+  margin-top: 20px;
+}
+
+.events-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.events-table th,
+.events-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.events-table th {
+  background-color: #f4f4f4;
+}
+
+.events-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.events-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.events-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .events-table {
+    font-size: 14px;
+  }
+}
