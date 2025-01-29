@@ -21,9 +21,15 @@ const Login = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (isRegister && password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
+    if (isRegister) {
+      if (password.length <= 5) {
+        setError("Password must be more than 5 characters.");
+        return;
+      }
+      if (password !== confirmPassword) {
+        setError("Passwords do not match. Please try again.");
+        return;
+      }
     }
 
     const endpoint = isRegister ? '/register' : '/login';
@@ -37,10 +43,10 @@ const Login = () => {
         localStorage.setItem('token', response.data.token);
         navigate('/tasks');
       } else {
-        setError(response.data.message || 'Invalid username or password.');
+        setError(response.data.message || 'Invalid username or password. Please try again.');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Server error, please try again.');
+      setError(err.response?.data?.message || 'Invalid username or password. Please try again.');
     }
   };
 
