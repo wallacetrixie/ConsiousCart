@@ -53,7 +53,7 @@ const Login = () => {
         setError(response.data.message || "An unexpected error occurred.");
       }
     } catch (err) {
-      setError(err.response?.data?.message || "An error occurred. Please check your credentials and try again.");
+      setError(err.response?.data?.message || "Too many log in attempts try again later.");
     }
   };
 

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Login.jsx';
 import Tasks from './tasks.jsx';
-import Test from './test.jsx'; 
+import Navbar from './Navbar.jsx';	 
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
       
         {/* Tasks Route */}
         <Route path="/" element={<Login />} />
+        <Route path="/Navbar" element={<Navbar />} />
         <Route path="/tasks" element={<Tasks />} />
       </Routes>
     </Router>
