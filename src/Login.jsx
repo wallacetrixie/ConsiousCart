@@ -18,37 +18,45 @@ const Login = () => {
     setPassword('');
     setConfirmPassword('');
   };
+const handleFormSubmit = async (e) => {
+  e.preventDefault();
+  setError(""); // Clear previous errors
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    if (isRegister) {
-      if (password.length <= 5) {
-        setError("Password must be more than 5 characters.");
-        return;
-      }
-      if (password !== confirmPassword) {
-        setError("Passwords do not match. Please try again.");
-        return;
-      }
+  if (isRegister) {
+    // Client-side password validation before sending request
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters.");
+      return;
     }
-
-    const endpoint = isRegister ? '/register' : '/login';
-    try {
-      const response = await axios.post(`http://localhost:5000${endpoint}`, {
-        username,
-        password,
-      });
-
-      if (response.data.success) {
-        localStorage.setItem('token', response.data.token);
-        navigate('/tasks');
-      } else {
-        setError(response.data.message || 'Invalid username or password. Please try again.');
-      }
-    } catch (err) {
-      setError(err.response?.data?.message || 'Invalid username or password. Please try again.');
+    if (password !== confirmPassword) {
+      setError("Passwords do not match. Please try again.");
+      return;
     }
-  };
+  }
+
+  const endpoint = isRegister ? "/register" : "/login";
+
+  try {
+    const response = await axios.post(`http://localhost:5000${endpoint}`, {
+      username,
+      password,
+      confirmPassword,
+    });
+
+    if (response.data.success) {
+      localStorage.setItem("token", response.data.token);
+      navigate("/tasks");
+    } else {
+      setError(response.data.message || "An unexpected error occurred.");
+    }
+  } catch (err) {
+    setError(
+      err.response?.data?.message ||
+        "An error occurred. Please check your credentials and try again."
+    );
+  }
+};
+
 
   return (
     <div className="auth-container">
