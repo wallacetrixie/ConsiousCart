@@ -34,9 +34,15 @@ app.use(
 // Register Route
 app.post("/register", (req, res) => {
   const { username, password, confirmPassword } = req.body;
+  const isStrongPassword = (password) => {
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return strongPasswordRegex.test(password);
+  };
   if (password !== confirmPassword) {
     return res.status(400).json({ message: "Passwords do not match" });
   }
+
   if (!isStrongPassword(password)) {
     return res.status(400).json({
       message:
