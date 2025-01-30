@@ -8,6 +8,7 @@ const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const app = express();
 const SECRET_KEY = "yA%55G_9;;y7ttFFF%5VVeer547^^8gf5AAWJ88990OHHtvr5:</";
+
 // Rate Limiting for Login Attempts
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, 
@@ -15,21 +16,30 @@ const loginLimiter = rateLimit({
   message: "Too many login attempts. Please try again later.",
 });
 
-// Middleware setup
+//middleware setup
+const csrf = require("csurf");
+app.use(csrf());
+app.use((req, res, next) => {
+  res.cookie("XSRF-TOKEN", req.csrfToken(), { httpOnly: true, secure: true });
+  next();
+});
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(
   session({
     secret: SECRET_KEY,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 3600000,
+      httpOnly: true, // Prevents client-side access to cookies
+      secure: process.env.NODE_ENV === "production", // Only use secure cookies in production
+      sameSite: "Strict", // Prevents CSRF attacks
+      maxAge: 3600000, // 1 hour expiration
     },
   })
 );
+
 
 // Register Route
 app.post("/register", (req, res) => {
@@ -75,7 +85,6 @@ app.post("/register", (req, res) => {
             .status(500)
             .json({ message: "Database error", error: err.message });
         }
-
         // Send success response
         res.json({
           success: true,
