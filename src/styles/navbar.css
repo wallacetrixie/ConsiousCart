@@ -1,98 +1,85 @@
-/* Navbar container */
+/* Navbar styling */
 .navbar {
-  background-color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  justify-content: space-between;
+  padding:7px;
+
+  border-top: 1px solid #a7a6a6;
+  border-bottom: 1px solid #d1dfce;
+ 
 }
 
 /* Logo */
 .logo {
   font-size: 22px;
-  font-weight: bold;
-  color: black;
-  cursor: pointer;
+  font-weight: lighter;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  align-items: center;
 }
 
 .star {
   color: orange;
   font-size: 18px;
-  margin-left: 3px;
+  margin-left: 5px;
 }
 
-/* Search Container */
+/* Search bar container */
 .search-container {
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
-  width: 40%;
-  max-width: 500px;
+  width: 500px;
+  height: 30px;
+    padding: 5px;
+  background: white;
 }
 
 .search-input {
-  padding: 10px;
   border: none;
   outline: none;
-  flex-grow: 1;
+  flex: 1;
+  padding: 10px;
   font-size: 14px;
+  font-weight: lighter;
 }
 
 .search-icon {
-  color: gray;
-  margin-left: 10px;
-}
-
-.search-button {
-  background-color: orange;
-  color: white;
-  border: none;
-  padding: 10px 15px;
+  font-size: 18px;
+  margin: 0 10px;
+  color: #888;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
 }
 
-/* Icons */
-.icon-container {
+/* Navbar icons */
+.nav-icons {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-.icon {
+.nav-item {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: lighter;
+  color: #333;
   cursor: pointer;
-  color: black;
 }
 
-.icon:hover {
-  color: orange;
+/* Adjust icon size */
+.icon {
+  font-size: 20px;
+  margin-right: 5px;
+  color: #555;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .search-container {
-    width: 90%;
-    margin: 10px 0;
-  }
-
-  .icon-container {
-    gap: 10px;
-  }
+/* Updated dropdown icon */
+.dropdown-icon {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #666;
 }
