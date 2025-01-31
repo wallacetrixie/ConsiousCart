@@ -1,60 +1,49 @@
-/* Navbar styling */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding:7px;
-
-  border-top: 1px solid #a7a6a6;
-  border-bottom: 1px solid #d1dfce;
- 
+/* General styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
-/* Logo */
-.logo {
-  font-size: 22px;
-  font-weight: lighter;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+.navbar {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .star {
-  color: orange;
-  font-size: 18px;
+  color: gold;
   margin-left: 5px;
 }
 
-/* Search bar container */
 .search-container {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
+  background-color: #444;
+  padding: 5px 10px;
   border-radius: 5px;
-  overflow: hidden;
-  width: 500px;
-  height: 30px;
-    padding: 5px;
-  background: white;
 }
 
 .search-input {
   border: none;
+  background: none;
+  color: #fff;
+  padding: 5px;
   outline: none;
-  flex: 1;
-  padding: 10px;
-  font-size: 14px;
-  font-weight: lighter;
 }
 
 .search-icon {
-  font-size: 18px;
-  margin: 0 10px;
   color: #888;
-  cursor: pointer;
+  margin-left: 5px;
 }
 
-/* Navbar icons */
 .nav-icons {
   display: flex;
   align-items: center;
@@ -66,20 +55,86 @@
   align-items: center;
   font-size: 16px;
   font-weight: lighter;
-  color: #333;
+  color: #ccc;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-/* Adjust icon size */
+.nav-item:hover {
+  color: #fff;
+}
+
 .icon {
   font-size: 20px;
   margin-right: 5px;
-  color: #555;
+  color: #888;
+  transition: color 0.3s ease;
 }
 
-/* Updated dropdown icon */
+.nav-item:hover .icon {
+  color: #fff;
+}
+
 .dropdown-icon {
   margin-left: 5px;
   font-size: 14px;
-  color: #666;
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.nav-item:hover .dropdown-icon {
+  color: #fff;
+}
+
+/* Hamburger menu styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 4px 0;
+  transition: 0.4s;
+}
+
+.nav-icons-mobile {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  background-color: #333;
+}
+
+.nav-icons-mobile .nav-item {
+  justify-content: flex-start;
+  padding: 10px 20px;
+  border-top: 1px solid #444;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-container {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .nav-icons {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-icons-mobile {
+    display: flex;
+  }
 }

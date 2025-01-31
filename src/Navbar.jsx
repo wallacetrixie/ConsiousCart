@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch, FaUser, FaQuestionCircle, FaShoppingCart, FaChevronDown } from "react-icons/fa";
 import './styles/navbar.css';
 
 const Navbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <nav className="navbar">
       {/* Logo */}
@@ -21,8 +27,15 @@ const Navbar = () => {
         <FaSearch className="search-icon" />
       </div>
 
+      {/* Hamburger Menu */}
+      <div className="hamburger" onClick={toggleMobileMenu}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
       {/* Navbar Icons */}
-      <div className="nav-icons">
+      <div className={`nav-icons ${isMobileMenuOpen ? 'nav-icons-mobile' : ''}`}>
         <div className="nav-item">
           <FaUser className="icon" />
           <span>Account</span>
