@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./styles/banner.css"; // Import CSS for styling
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaLeaf, FaHeartbeat, FaBrain, FaUtensils } from "react-icons/fa";
 
 // Import images
 import environmentImg from "./images/environment.jpg";
 import healthy from "./images/healthy.jpg";
 import Ai from "./images/Ai.jpg";
 import natural from "./images/natural.jpg";
+import meal from "./images/meal.jpg";
 
 // Image and text data
 const slides = [
@@ -29,6 +30,11 @@ const slides = [
     image: natural,
     title: "Natural & Organic",
     description: "Carefully selected natural products that are good for you and the planet.",
+  },
+  {
+    image: meal,
+    title: "Personalized Meal Plans",
+    description: "Customize your diet with AI-powered meal planning tailored to your preferences and health goals.",
   },
 ];
 
@@ -65,6 +71,30 @@ const Banner = () => {
             className={`slide ${index === currentIndex ? "active" : ""}`}
           />
         ))}
+      </div>
+
+      {/* Feature Boxes */}
+      <div className="feature-boxes">
+        <div className="feature-box">
+          <FaLeaf className="feature-icon" />
+          <h3>Eco-Friendly</h3>
+          <p>Promoting sustainability and responsible shopping.</p>
+        </div>
+        <div className="feature-box">
+          <FaHeartbeat className="feature-icon" />
+          <h3>Healthy Living</h3>
+          <p>Offering fresh and organic products for a balanced diet.</p>
+        </div>
+        <div className="feature-box">
+          <FaBrain className="feature-icon" />
+          <h3>AI-Powered Insights</h3>
+          <p>Smart recommendations based on your preferences.</p>
+        </div>
+        <div className="feature-box">
+          <FaUtensils className="feature-icon" />
+          <h3>Meal Planning</h3>
+          <p>Customize your meals with AI-generated diet plans.</p>
+        </div>
       </div>
 
       {/* Navigation Buttons */}
