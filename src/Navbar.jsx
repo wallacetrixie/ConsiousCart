@@ -31,17 +31,16 @@ const Navbar = () => {
         <span className="star">★</span>
       </div>
 
-    {/* Search Bar + Hamburger Container */}
-<div className="search-hamburger">
-  <div className="search-container">
-    <input type="text" placeholder="Search products, brands, and categories" className="search-input" />
-    <FaSearch className="search-icon" />
-  </div>
-  <div className="hamburger" onClick={toggleMobileMenu}>
-    <FaBars />
-  </div>
-</div>
-
+      {/* Search Bar + Hamburger */}
+      <div className="search-hamburger">
+        <div className="search-container">
+          <input type="text" placeholder="Search products, brands, and categories" className="search-input" />
+          <FaSearch className="search-icon" />
+        </div>
+        <div className="hamburger" onClick={toggleMobileMenu}>
+          <FaBars />
+        </div>
+      </div>
 
       {/* Navbar Icons */}
       <div className={`nav-icons ${isMobileMenuOpen ? "nav-icons-mobile" : ""}`}>
@@ -50,28 +49,20 @@ const Navbar = () => {
           <FaUser className="icon" />
           <span>Account</span>
           <FaChevronDown className="dropdown-icon" />
-          {dropdown === "account" && (
-            <div className="dropdown-menu">
-              <div className="dropdown-item">
-                <FaCog className="dropdown-icon-item" /> Account Settings
-              </div>
-              <div className="dropdown-item">
-                <FaBell className="dropdown-icon-item" /> Notifications
-              </div>
-              <div className="dropdown-item" onClick={toggleDarkMode}>
-                {darkMode ? <FaSun /> : <FaMoon />} {darkMode ? "Light Mode" : "Dark Mode"}
-              </div>
-              <div className="dropdown-item">
-                <FaSignOutAlt className="dropdown-icon-item" /> Logout
-              </div>
-              <div className="dropdown-item">
-                <FaCog className="dropdown-icon-item" /> Privacy Settings
-              </div>
-              <div className="dropdown-item">
-                <FaCog className="dropdown-icon-item" /> Security Settings
-              </div>
+          <div className={`dropdown-menu ${dropdown === "account" ? "dropdown-open" : ""}`}>
+            <div className="dropdown-item">
+              <FaCog className="dropdown-icon-item" /> Account Settings
             </div>
-          )}
+            <div className="dropdown-item">
+              <FaBell className="dropdown-icon-item" /> Notifications
+            </div>
+            <div className="dropdown-item" onClick={toggleDarkMode}>
+              {darkMode ? <FaSun /> : <FaMoon />} {darkMode ? "Light Mode" : "Dark Mode"}
+            </div>
+            <div className="dropdown-item">
+              <FaSignOutAlt className="dropdown-icon-item" /> Logout
+            </div>
+          </div>
         </div>
 
         {/* Help Dropdown */}
@@ -79,28 +70,24 @@ const Navbar = () => {
           <FaQuestionCircle className="icon" />
           <span>Help</span>
           <FaChevronDown className="dropdown-icon" />
-          {dropdown === "help" && (
-            <div className="dropdown-menu">
-              <div className="dropdown-item">FAQs</div>
-              <div className="dropdown-item">Customer Support</div>
-              <div className="dropdown-item">Live Chat</div>
-              <div className="dropdown-item">Feedback</div>
-            </div>
-          )}
+          <div className={`dropdown-menu ${dropdown === "help" ? "dropdown-open" : ""}`}>
+            <div className="dropdown-item">FAQs</div>
+            <div className="dropdown-item">Customer Support</div>
+            <div className="dropdown-item">Live Chat</div>
+            <div className="dropdown-item">Feedback</div>
+          </div>
         </div>
 
         {/* Cart Dropdown */}
         <div className="nav-item" onClick={() => toggleDropdown("cart")}>
           <FaShoppingCart className="icon" />
           <span>Cart</span>
-          {dropdown === "cart" && (
-            <div className="dropdown-menu">
-              <div className="dropdown-item">View Cart</div>
-              <div className="dropdown-item">Checkout</div>
-              <div className="dropdown-item">Order History</div>
-              <div className="dropdown-item">Wishlist</div>
-            </div>
-          )}
+          <div className={`dropdown-menu ${dropdown === "cart" ? "dropdown-open" : ""}`}>
+            <div className="dropdown-item">View Cart</div>
+            <div className="dropdown-item">Checkout</div>
+            <div className="dropdown-item">Order History</div>
+            <div className="dropdown-item">Wishlist</div>
+          </div>
         </div>
       </div>
     </nav>
