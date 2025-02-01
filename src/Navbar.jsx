@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaSearch, FaUser, FaQuestionCircle, FaShoppingCart, FaChevronDown } from "react-icons/fa";
+import { FaSearch, FaUser, FaQuestionCircle, FaShoppingCart, FaChevronDown, FaBars } from "react-icons/fa";
 import './styles/navbar.css';
 
 const Navbar = () => {
@@ -19,20 +19,18 @@ const Navbar = () => {
 
       {/* Search Bar */}
       <div className="search-container">
+        <FaSearch className="search-icon" />
         <input
           type="text"
           placeholder="Search products, brands, and categories"
           className="search-input"
         />
-        <FaSearch className="search-icon" />
+        <button className="search-button">Search</button>
+       
       </div>
-
-      {/* Hamburger Menu */}
-      <div className="hamburger" onClick={toggleMobileMenu}>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+       <div className="hamburger" onClick={toggleMobileMenu}>
+          <FaBars/>
+        </div>
 
       {/* Navbar Icons */}
       <div className={`nav-icons ${isMobileMenuOpen ? 'nav-icons-mobile' : ''}`}>
