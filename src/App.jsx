@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       {/* Navbar is outside Routes so it stays on all pages */}
-      <Navbar />
+      {/* <Navbar /> */}
 
       <Routes>
         {/* Home Page - Shows Banner below Navbar */}

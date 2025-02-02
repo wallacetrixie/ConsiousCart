@@ -1,6 +1,30 @@
 import React, { useState } from "react";
 import "./styles/categories.css"; // Import CSS
 import { FaLeaf, FaHome, FaHeartbeat, FaLightbulb } from "react-icons/fa";
+// Sustainable groceries
+import fruits from "./images/fruits.jpg";
+import vegies from "./images/vegies.jpg";
+import drinks from "./images/drinks.jpg";
+import greens from "./images/greens.jpg";
+
+
+// eco friendly home and kitchen products
+import bamboo from "./images/bamboo.jpg";
+import bottle from "./images/bottle.jpg";
+import cleaning from "./images/cleaning.jpg";
+import dishwasher from "./images/dishwasher.jpg";
+
+// health and wellness
+import skin from "./images/skin.jpg";
+import herbal from "./images/herbal.jpg";
+import toxin from "./images/toxin.jpg";
+import workout from "./images/workout.jpg";
+
+// smart and sustainable
+import solar from "./images/solar.jpg";
+import phone from "./images/phone.jpg";
+import battery from "./images/battery.jpg";
+import energy from "./images/energy.jpg";
 
 // Sample Product Data
 const categories = [
@@ -8,40 +32,40 @@ const categories = [
     name: "Sustainable Groceries",
     icon: <FaLeaf />,
     products: [
-      { image: "/images/organic-fruits.jpg", name: "Organic Fruits" },
-      { image: "/images/vegan-meal.jpg", name: "Vegan Meal" },
-      { image: "/images/eco-snacks.jpg", name: "Eco-Friendly Snacks" },
-      { image: "/images/fairtrade-coffee.jpg", name: "Fair Trade Coffee" },
+      { image: fruits, name: "Organic Fruits" },
+      { image: vegies, name: "Vegetables" },
+      { image: drinks, name: "Healthy drinks" },
+      { image: greens, name: "Green vegetables" },
     ],
   },
   {
     name: "Eco-Friendly Home & Kitchen",
     icon: <FaHome />,
     products: [
-      { image: "/images/bamboo-utensils.jpg", name: "Bamboo Utensils" },
-      { image: "/images/reusable-bottle.jpg", name: "Reusable Bottle" },
-      { image: "/images/eco-cleaning.jpg", name: "Eco Cleaning Supplies" },
-      { image: "/images/compostable-dishware.jpg", name: "Compostable Dishware" },
+      { image: bamboo, name: "Bamboo Utensils" },
+      { image: bottle, name: "Reusable Bottle" },
+      { image: cleaning, name: "Eco Cleaning Supplies" },
+      { image: dishwasher, name: "Compostable Dishware" },
     ],
   },
   {
     name: "Health & Wellness",
     icon: <FaHeartbeat />,
     products: [
-      { image: "/images/organic-skincare.jpg", name: "Organic Skincare" },
-      { image: "/images/herbal-supplements.jpg", name: "Herbal Supplements" },
-      { image: "/images/toxin-free-care.jpg", name: "Toxin-Free Personal Care" },
-      { image: "/images/sustainable-fitness.jpg", name: "Sustainable Workout Gear" },
+      { image: skin, name: "Organic Skincare" },
+      { image: herbal, name: "Herbal Supplements" },
+      { image: toxin, name: "Toxin-Free Personal Care" },
+      { image: workout, name: "Sustainable Workout Gear" },
     ],
   },
   {
     name: "Smart & Sustainable Tech",
     icon: <FaLightbulb />,
     products: [
-      { image: "/images/solar-charger.jpg", name: "Solar Charger" },
-      { image: "/images/eco-phone-case.jpg", name: "Eco-Friendly Phone Case" },
-      { image: "/images/reusable-batteries.jpg", name: "Reusable Batteries" },
-      { image: "/images/energy-saving.jpg", name: "Energy-Efficient Gadgets" },
+      { image: solar, name: "Solar Charger" },
+      { image: phone, name: "Eco-Friendly Phone Case" },
+      { image: battery, name: "Reusable Batteries" },
+      { image: energy, name: "Energy-Efficient Gadgets" },
     ],
   },
 ];
