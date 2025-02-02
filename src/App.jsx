@@ -14,7 +14,7 @@ function App() {
       <Routes>
         {/* Home Page - Shows Banner below Navbar */}
         <Route path="/" element={<Banner />} />
-        <Route path="/" element={<Categories/>}/>
+        <Route path="/Categories" element={<Categories/>}/>
 
         {/* Other Routes */}
         <Route path="/tasks" element={<Tasks />} />
