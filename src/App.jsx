@@ -3,6 +3,7 @@ import Login from './Login.jsx';
 import Tasks from './tasks.jsx';
 import Navbar from './Navbar.jsx';
 import Banner from './Banner.jsx';
+import Categories from './Categories.jsx';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         {/* Home Page - Shows Banner below Navbar */}
         <Route path="/" element={<Banner />} />
+        <Route path="/" element={<Categories/>}/>
 
         {/* Other Routes */}
         <Route path="/tasks" element={<Tasks />} />
