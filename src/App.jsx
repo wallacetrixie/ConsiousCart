@@ -11,7 +11,8 @@ function App() {
         {/* Login Route */}
       
         {/* Tasks Route */}
-        <Route path="/" element={<Login />} />
+
+        <Route path="/" element={<Navbar />} />
         <Route path="/Navbar" element={<Navbar />} />
         <Route path="/Banner" element={<Banner />} />
         <Route path="/tasks" element={<Tasks />} />
