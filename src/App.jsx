@@ -7,15 +7,16 @@ import Banner from './Banner.jsx';
 function App() {
   return (
     <Router>
-      <Routes>
-        {/* Login Route */}
-      
-        {/* Tasks Route */}
+      {/* Navbar is outside Routes so it stays on all pages */}
+      <Navbar />
 
-        <Route path="/" element={<Navbar />} />
-        <Route path="/Navbar" element={<Navbar />} />
-        <Route path="/Banner" element={<Banner />} />
+      <Routes>
+        {/* Home Page - Shows Banner below Navbar */}
+        <Route path="/" element={<Banner />} />
+
+        {/* Other Routes */}
         <Route path="/tasks" element={<Tasks />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
