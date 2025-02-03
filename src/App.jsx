@@ -9,16 +9,17 @@ function App() {
   return (
     <Router>
       {/* Navbar is outside Routes so it stays on all pages */}
-      {/* <Navbar /> */}
+      <Navbar />
+      <Banner />
+      <Categories/>
 
       <Routes>
         {/* Home Page - Shows Banner below Navbar */}
-        <Route path="/" element={<Banner />} />
-        <Route path="/Categories" element={<Categories/>}/>
+
+       
 
         {/* Other Routes */}
-        <Route path="/tasks" element={<Tasks />} />
-        <Route path="/login" element={<Login />} />
+    
       </Routes>
     </Router>
   );
