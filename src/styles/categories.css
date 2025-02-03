@@ -44,6 +44,7 @@
 .category-name {
   font-size: 16px;
   font-weight: bold;
+  color:#818080;
 }
 
 /* Product Banner */
@@ -80,9 +81,10 @@
 }
 
 .product-name {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   margin-top: 10px;
+  color:#818080;
 }
 
 /* Responsive Design */
@@ -102,10 +104,15 @@
 }
 
 @media (max-width: 768px) {
+  .categories-container {
+    padding: 20px 20px; /* Add padding to the container */
+  }
+
   .category-list {
     flex-wrap: nowrap;
     justify-content: space-between;
     gap: 10px;
+    margin: 0 10px; /* Add margin to the list */
   }
 
   .category-item {
