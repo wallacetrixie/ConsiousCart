@@ -1,32 +1,45 @@
 import React, { useState } from "react";
+import { FaHeartbeat, FaHome, FaLeaf, FaLightbulb } from "react-icons/fa";
 import "./styles/categories.css"; // Import CSS
-import { FaLeaf, FaHome, FaHeartbeat, FaLightbulb } from "react-icons/fa";
 // Sustainable groceries
-import fruits from "./images/fruits.jpg";
-import vegies from "./images/vegies.jpg";
+import dairy from "./images/dairy.jpg";
 import drinks from "./images/drinks.jpg";
+import fruits from "./images/fruits.jpg";
+import grains from "./images/grains.jpg";
 import greens from "./images/greens.jpg";
-
+import nuts from "./images/nuts.jpg";
+import vegies from "./images/vegies.jpg";
 
 // eco friendly home and kitchen products
+import bags from "./images/bags.jpg";
 import bamboo from "./images/bamboo.jpg";
 import bottle from "./images/bottle.jpg";
 import cleaning from "./images/cleaning.jpg";
+import cloth from "./images/cloth.jpg";
+import compost from "./images/compost.jpg";
 import dishwasher from "./images/dishwasher.jpg";
+import soap from "./images/soap.jpg";
 
 // health and wellness
-import skin from "./images/skin.jpg";
 import herbal from "./images/herbal.jpg";
+import oils from "./images/oils.jpg";
+import skin from "./images/skin.jpg";
+import supplements from "./images/supplements.jpg";
 import toxin from "./images/toxin.jpg";
+import vitamins from "./images/vitamins.jpg";
 import workout from "./images/workout.jpg";
+import yoga from "./images/yoga.jpg";
 
 // smart and sustainable
+import bulbs from "./images/bulbs.jpg";
+import charger from "./images/charger.jpg";
+import headphones from "./images/headphones.jpg";
+import smartwatch from "./images/smartwatch.jpg";
 import solar from "./images/solar.jpg";
-import phone from "./images/phone.jpg";
-import battery from "./images/battery.jpg";
-import energy from "./images/energy.jpg";
+import speakers from "./images/speakers.jpg";
+import tech from "./images/tech.jpg";
+import thermostat from "./images/thermostat.jpg";
 
-// Sample Product Data
 const categories = [
   {
     name: "Sustainable Groceries",
@@ -34,8 +47,12 @@ const categories = [
     products: [
       { image: fruits, name: "Organic Fruits" },
       { image: vegies, name: "Vegetables" },
-      { image: drinks, name: "Healthy drinks" },
-      { image: greens, name: "Green vegetables" },
+      { image: drinks, name: "Healthy Drinks" },
+      { image: greens, name: "Green Vegetables" },
+      { image: grains, name: "Whole Grains" },
+      { image: nuts, name: "Nuts & Seeds" },
+      { image: dairy, name: "Dairy Alternatives" },
+      { image: energy, name: "Energy Bars" },
     ],
   },
   {
@@ -46,6 +63,10 @@ const categories = [
       { image: bottle, name: "Reusable Bottle" },
       { image: cleaning, name: "Eco Cleaning Supplies" },
       { image: dishwasher, name: "Compostable Dishware" },
+      { image: compost, name: "Compost Bins" },
+      { image: cloth, name: "Reusable Cloths" },
+      { image: bags, name: "Reusable Bags" },
+      { image: soap, name: "Eco Soap" },
     ],
   },
   {
@@ -56,16 +77,24 @@ const categories = [
       { image: herbal, name: "Herbal Supplements" },
       { image: toxin, name: "Toxin-Free Personal Care" },
       { image: workout, name: "Sustainable Workout Gear" },
+      { image: yoga, name: "Yoga Mats" },
+      { image: vitamins, name: "Vitamins" },
+      { image: oils, name: "Essential Oils" },
+      { image: supplements, name: "Natural Supplements" },
     ],
   },
   {
     name: "Smart & Sustainable Tech",
     icon: <FaLightbulb />,
     products: [
-      { image: solar, name: "Solar Charger" },
-      { image: phone, name: "Eco-Friendly Phone Case" },
-      { image: battery, name: "Reusable Batteries" },
-      { image: energy, name: "Energy-Efficient Gadgets" },
+      { image: tech, name: "Eco-Friendly Tech" },
+      { image: solar, name: "Solar Panels" },
+      { image: charger, name: "Solar Chargers" },
+      { image: thermostat, name: "Smart Thermostats" },
+      { image: bulbs, name: "LED Bulbs" },
+      { image: speakers, name: "Eco Speakers" },
+      { image: headphones, name: "Eco Headphones" },
+      { image: smartwatch, name: "Smart Watches" },
     ],
   },
 ];

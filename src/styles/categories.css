@@ -4,6 +4,7 @@
   text-align: center;
   padding: 20px 10px;
   background: #f4f4f4;
+  margin: 0 20px; /* Add margin to the left and right */
 }
 
 /* Category List */
@@ -20,14 +21,13 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  
   padding: 10px 15px;
   background: white;
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  flex: 1 1 calc(25% - 40px); /* Adjust the width for responsiveness */
+  flex: 1 1 calc(50% - 40px); /* Adjust the width for two columns */
   max-width: 200px; /* Optional: Set a max width */
 }
 
@@ -45,13 +45,13 @@
 .category-name {
   font-size: 16px;
   font-weight: bold;
-  color:#818080;
+  color: #818080;
 }
 
 /* Product Banner */
 .product-banner {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* Four images in a row */
   gap: 15px;
   margin-top: 20px;
 }
@@ -85,7 +85,7 @@
   font-size: 16px;
   font-weight: bold;
   margin-top: 10px;
-  color:#818080;
+  color: #818080;
 }
 
 /* Responsive Design */
@@ -105,15 +105,10 @@
 }
 
 @media (max-width: 768px) {
-  .categories-container {
-    padding: 20px 20px; /* Add padding to the container */
-  }
-
   .category-list {
     flex-wrap: nowrap;
     justify-content: space-between;
     gap: 10px;
-    margin: 0 10px; /* Add margin to the list */
   }
 
   .category-item {
