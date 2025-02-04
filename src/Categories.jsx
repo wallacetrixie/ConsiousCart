@@ -9,6 +9,7 @@ import grains from "./images/grains.jpg";
 import greens from "./images/greens.jpg";
 import nuts from "./images/nuts.jpg";
 import vegies from "./images/vegies.jpg";
+import energy from "./images/energy.jpg";
 
 // eco friendly home and kitchen products
 import bags from "./images/bags.jpg";
@@ -34,10 +35,10 @@ import yoga from "./images/yoga.jpg";
 import bulbs from "./images/bulbs.jpg";
 import charger from "./images/charger.jpg";
 import headphones from "./images/headphones.jpg";
+import laptop from "./images/laptop.jpg";
 import smartwatch from "./images/smartwatch.jpg";
 import solar from "./images/solar.jpg";
 import speakers from "./images/speakers.jpg";
-import laptop from "./images/laptop.jpg";
 import thermostat from "./images/thermostat.jpg";
 
 const categories = [
@@ -52,7 +53,7 @@ const categories = [
       { image: grains, name: "Whole Grains" },
       { image: nuts, name: "Nuts & Seeds" },
       { image: dairy, name: "Dairy Alternatives" },
-      { image: energy, name: "Energy Bars" },
+      { image: energy, name: "Healthy proteins" },
     ],
   },
   {
