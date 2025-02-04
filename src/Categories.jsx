@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { FaHeartbeat, FaHome, FaLeaf, FaLightbulb } from "react-icons/fa";
 import "./styles/categories.css"; // Import CSS
-// Sustainable groceries
+
+// Import images and icons
+import { FaHeartbeat, FaHome, FaLeaf, FaLightbulb } from "react-icons/fa";
 import dairy from "./images/dairy.jpg";
 import drinks from "./images/drinks.jpg";
 import fruits from "./images/fruits.jpg";
@@ -10,8 +11,6 @@ import greens from "./images/greens.jpg";
 import nuts from "./images/nuts.jpg";
 import vegies from "./images/vegies.jpg";
 import energy from "./images/energy.jpg";
-
-// eco friendly home and kitchen products
 import bags from "./images/bags.jpg";
 import bamboo from "./images/bamboo.jpg";
 import bottle from "./images/bottle.jpg";
@@ -20,8 +19,6 @@ import cloth from "./images/cloth.jpg";
 import compost from "./images/compost.jpg";
 import dishwasher from "./images/dishwasher.jpg";
 import soap from "./images/soap.jpg";
-
-// health and wellness
 import herbal from "./images/herbal.jpg";
 import oils from "./images/oils.jpg";
 import skin from "./images/skin.jpg";
@@ -30,8 +27,6 @@ import toxin from "./images/toxin.jpg";
 import vitamins from "./images/vitamins.jpg";
 import workout from "./images/workout.jpg";
 import yoga from "./images/yoga.jpg";
-
-// smart and sustainable
 import bulbs from "./images/bulbs.jpg";
 import charger from "./images/charger.jpg";
 import headphones from "./images/headphones.jpg";
@@ -44,7 +39,6 @@ import thermostat from "./images/thermostat.jpg";
 const categories = [
   {
     name: "Sustainable Groceries",
-    icon: <FaLeaf />,
     products: [
       { image: fruits, name: "Organic Fruits" },
       { image: vegies, name: "Vegetables" },
@@ -58,7 +52,6 @@ const categories = [
   },
   {
     name: "Eco-Friendly Home & Kitchen",
-    icon: <FaHome />,
     products: [
       { image: bamboo, name: "Bamboo Utensils" },
       { image: bottle, name: "Reusable Bottle" },
@@ -72,7 +65,6 @@ const categories = [
   },
   {
     name: "Health & Wellness",
-    icon: <FaHeartbeat />,
     products: [
       { image: skin, name: "Organic Skincare" },
       { image: herbal, name: "Herbal Supplements" },
@@ -86,7 +78,6 @@ const categories = [
   },
   {
     name: "Smart & Sustainable Tech",
-    icon: <FaLightbulb />,
     products: [
       { image: laptop, name: "Eco-Friendly laptops" },
       { image: solar, name: "Solar Panels" },
@@ -108,14 +99,13 @@ const Categories = () => {
       {/* Category Selection */}
       <div className="category-list">
         {categories.map((category, index) => (
-          <div
+          <button
             key={index}
             className={`category-item ${selectedCategory.name === category.name ? "active" : ""}`}
             onClick={() => setSelectedCategory(category)}
           >
-            <span className="category-icon">{category.icon}</span>
-            <span className="category-name">{category.name}</span>
-          </div>
+            {category.name}
+          </button>
         ))}
       </div>
 
@@ -125,6 +115,7 @@ const Categories = () => {
           <div key={index} className="product-card">
             <img src={product.image} alt={product.name} className="product-image" />
             <p className="product-name">{product.name}</p>
+            <a href="#" className="view-more">View more</a>
           </div>
         ))}
       </div>
