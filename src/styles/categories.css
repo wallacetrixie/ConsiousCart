@@ -1,18 +1,15 @@
 /* Main Container */
 .categories-container {
-  width: 100%;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
   background: #f4f4f4;
-  padding: 20px;
 }
 
 /* Category List */
 .category-list {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-wrap: wrap;
-  margin-bottom: 20px;
   margin-bottom: 20px;
 }
 
@@ -20,34 +17,29 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background-color: #f0f0f0;
+  padding: 10px 10px;
+  background-color:orange;
   border: none;
   cursor: pointer;
   font-size: 14px;
   transition: transform 0.3s ease-in-out, background-color 0.3s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  flex: 1 1 calc(25% - 40px); /* Adjust the width for responsiveness */
-  max-width: 200px; /* Optional: Set a max width */
-  background-color: #f0f0f0;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 14px;
+  flex: 1 1 calc(25% - 40px);
+  max-width: 200px; 
   transition: background-color 0.3s;
 }
 
 .category-item:hover {
   transform: scale(1.05);
-  background-color: #e0e0e0;
-  background-color: #e0e0e0;
+  background-color:rgb(241, 179, 63);
+
+
 }
 
 .category-item.active {
   transform: scale(1.05);
-  background-color: #d0d0d0;
-  background-color: #d0d0d0;
+  background-color:rgb(98, 211, 23);
+
 }
 
 .category-icon {
