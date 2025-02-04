@@ -37,7 +37,7 @@ import headphones from "./images/headphones.jpg";
 import smartwatch from "./images/smartwatch.jpg";
 import solar from "./images/solar.jpg";
 import speakers from "./images/speakers.jpg";
-import tech from "./images/tech.jpg";
+import laptop from "./images/laptop.jpg";
 import thermostat from "./images/thermostat.jpg";
 
 const categories = [
@@ -87,7 +87,7 @@ const categories = [
     name: "Smart & Sustainable Tech",
     icon: <FaLightbulb />,
     products: [
-      { image: tech, name: "Eco-Friendly Tech" },
+      { image: laptop, name: "Eco-Friendly laptops" },
       { image: solar, name: "Solar Panels" },
       { image: charger, name: "Solar Chargers" },
       { image: thermostat, name: "Smart Thermostats" },
