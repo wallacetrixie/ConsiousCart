@@ -2,7 +2,6 @@
 .categories-container {
   text-align: center;
   padding: 10px;
-
   margin-left: 100px;
   margin-right: 100px;
 }
@@ -27,7 +26,7 @@
   font-size: 14px;
   transition: transform 0.3s ease-in-out, background-color 0.3s;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  flex: 1 1 calc(25% - 20px); /* Adjust width to account for reduced gap */
+  flex: 1 1 calc(25% - 20px);
   max-width: 200px;
 }
 
@@ -64,7 +63,6 @@
   background: white;
   padding: 15px;
   border-radius: 10px;
-
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -73,20 +71,24 @@
 }
 
 .product-card:hover {
-  transform: scale(1.05);
+  transform: scale(1);
 }
 
+.product-card:hover img {
+  opacity: 1; /* Keeps it sharp */
+}
+
+/* Removed blur effect */
 .product-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
   border-radius: 8px;
-  transition: transform 0.3s, filter 0.3s;
+  transition: transform 0.3s;
 }
 
 .product-card:hover .product-image {
   transform: scale(1.1);
-  filter: blur(2px);
 }
 
 .product-name {
@@ -99,12 +101,12 @@
 
 .view-more {
   position: absolute;
-  bottom: 1px; /* Positioned below product name */
+  bottom: 1px;
   left: 50%;
-  transform: translate(-50%, 10px); /* Initially below the product */
-  opacity: 0; /* Hidden by default */
+  transform: translate(-50%, 10px);
+  opacity: 0;
   padding: 8px 12px;
-  background-color: #ffe600;
+  background-color: orange;
   color: white;
   text-decoration: none;
   border-radius: 5px;
@@ -115,12 +117,12 @@
 }
 
 .product-card:hover .view-more {
-  opacity: 1; /* Fade in */
+  opacity: 1;
   transform: translate(-50%, 0);
 }
 
 .view-more:hover {
-  background-color: #b3a100;
+  background-color: rgb(253, 177, 35);
 }
 
 /* Responsive Design */
@@ -133,6 +135,7 @@
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 10px;
   }
+
   .categories-container {
     margin-left: 0px;
     margin-right: 0px;
@@ -141,6 +144,7 @@
   .product-card {
     padding: 10px;
   }
+
   .product-image {
     height: 150px;
   }
@@ -152,10 +156,12 @@
     justify-content: space-between;
     gap: 10px;
   }
+
   .categories-container {
     margin-left: 0px;
     margin-right: 0px;
   }
+
   .product-image {
     height: 140px;
   }
@@ -183,6 +189,7 @@
   .view-more {
     display: none;
   }
+
   .categories-container {
     margin-left: 0px;
     margin-right: 0px;
