@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./styles/categories.css"; // Import CSS
+import "./styles/categories.css"; 
+import { Link } from "react-router-dom";
 import { FaHeartbeat, FaHome, FaLeaf, FaLightbulb } from "react-icons/fa";
 import * as images from "./images"; // Import all images
 
@@ -82,7 +83,7 @@ const Categories = () => {
           <div key={index} className="product-card">
             <img src={product.image} alt={product.name} className="product-image" />
             <p className="product-name">{product.name}</p>
-            <a href="#" className="view-more">View more</a>
+         <Link to={`/product/${product.id}`} className="view-more">View more</Link>
           </div>
         ))}
       </div>
