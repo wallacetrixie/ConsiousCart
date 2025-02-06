@@ -4,21 +4,24 @@ import Tasks from './tasks.jsx';
 import Navbar from './Navbar.jsx';
 import Banner from './Banner.jsx';
 import Categories from './Categories.jsx';
+import ProductDetails from './productDetails.jsx';
 
 
 function App() {
   return (
     <Router>
-       <Categories/>
+
+
       {/* Navbar is outside Routes so it stays on all pages */}
-      {/* <Navbar />
+      <Navbar />
       <Banner />
-      <Categories/> */}
+      <Categories/>
      
 
       <Routes>
         {/* Home Page - Shows Banner below Navbar */}
-
+        <Route path="/" element={<ProductDetails/>} />
+      
        
 
         {/* Other Routes */}

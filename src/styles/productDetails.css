@@ -1,88 +1,102 @@
 .product-details-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 20px;
   padding: 20px;
 }
 
-.product-left {
-  flex: 1;
-}
-
+/* Main Product Image */
 .main-product-image {
-  width: 100%;
-  max-height: 400px;
+  width: 400px;
+  height: 400px;
   object-fit: cover;
   border-radius: 10px;
 }
 
-.additional-images {
+/* Thumbnails */
+.image-thumbnails {
   display: flex;
-  gap: 10px;
+  justify-content: center;
   margin-top: 10px;
 }
 
-.small-product-image {
-  width: 70px;
-  height: 70px;
-  border-radius: 5px;
+.image-thumbnails img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin: 5px;
   cursor: pointer;
+  border-radius: 5px;
   transition: transform 0.3s;
 }
 
-.small-product-image:hover {
+.image-thumbnails img:hover {
   transform: scale(1.1);
 }
 
-.product-right {
+/* Product Information */
+.product-info {
   flex: 1;
   padding: 20px;
 }
 
-h2 {
+.product-info h1 {
   font-size: 24px;
-  margin-bottom: 10px;
 }
 
-.ai-insights {
-  background-color: #f3f3f3;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  color: #444;
-  margin-bottom: 20px;
-}
-
-.product-price {
-  font-size: 20px;
-  font-weight: bold;
-  color: #ff5733;
-  margin-top: 15px;
-}
-
-.add-to-cart-btn {
+.add-to-cart {
   background-color: orange;
   color: white;
-  padding: 10px 15px;
-  font-size: 16px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
-.add-to-cart-btn:hover {
+.add-to-cart:hover {
   background-color: rgb(253, 177, 35);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .product-details-container {
-    flex-direction: column;
-    align-items: center;
-  }
+/* Similar Products */
+.similar-products {
+  width: 100%;
+  margin-top: 30px;
+}
 
-  .product-right {
-    text-align: center;
-  }
+.similar-products h2 {
+  text-align: center;
+  font-size: 22px;
+}
+
+.product-banner {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.product-card {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.product-name {
+  font-size: 14px;
+  margin-top: 5px;
 }

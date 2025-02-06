@@ -167,6 +167,19 @@ app.get("/api/product/:id", (req, res) => {
     });
 });
 
+app.get("/api/similar-products/:categoryId/:productId", (req, res) => {
+  const { categoryId, productId } = req.params;
+  db.query(
+    "SELECT * FROM products WHERE category_id = ? AND id != ? LIMIT 4",
+    [categoryId, productId],
+    (err, results) => {
+      if (err) res.status(500).send(err);
+      else res.json(results);
+    }
+  );
+});
+
+
 
 app.listen(5000, () => {
   console.log("Server started on port 5000");
