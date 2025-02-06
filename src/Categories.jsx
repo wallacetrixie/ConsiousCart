@@ -8,6 +8,7 @@ const Categories = () => {
   const [products, setProducts] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [similarProducts, setSimilarProducts] = useState([]);
 
   // Fetch categories from backend
   useEffect(() => {
@@ -15,7 +16,7 @@ const Categories = () => {
       .then((res) => res.json())
       .then((data) => {
         setCategories(data);
-        setSelectedCategory(data[0]); // Set first category as default
+        setSelectedCategory(data[0]);
       });
   }, []);
 
@@ -32,12 +33,29 @@ const Categories = () => {
   const handleViewMore = (product) => {
     setSelectedProduct(product);
     setShowPopup(true);
+
+    // Fetch similar products
+    fetch(`http://localhost:5000/api/similar-products/${product.category_id}/${product.id}`)
+      .then(res => res.json())
+      .then(setSimilarProducts);
   };
 
   // Handle closing the popup
   const handleClosePopup = () => {
     setShowPopup(false);
     setSelectedProduct(null);
+    setSimilarProducts([]);
+  };
+
+  // AI Insights (Randomly Generated)
+  const generateAIInsight = () => {
+    const insights = [
+      "This product is made from 100% organic ingredients.",
+      "A sustainable option that reduces environmental impact.",
+      "Rich in essential vitamins and nutrients.",
+      "Eco-friendly and designed for long-term use."
+    ];
+    return insights[Math.floor(Math.random() * insights.length)];
   };
 
   return (
@@ -63,7 +81,7 @@ const Categories = () => {
               src={images[product.image_key]}
               alt={product.name}
               className="product-image"
-              onClick={() => handleViewMore(product)} // Show popup on image click
+              onClick={() => handleViewMore(product)} 
             />
             <p className="product-name">{product.name}</p>
             <button className="view-more" onClick={() => handleViewMore(product)}>
@@ -73,18 +91,53 @@ const Categories = () => {
         ))}
       </div>
 
-      {/* Product Popup */}
+      {/* Full-Screen Product Popup */}
       {showPopup && selectedProduct && (
         <div className="popup-overlay">
-          <div className="popup-content">
-            <h2>{selectedProduct.name}</h2>
-            <p>{selectedProduct.description}</p>
-            <ul>
-              <li>Requirement 1: {selectedProduct.requirement1}</li>
-              <li>Requirement 2: {selectedProduct.requirement2}</li>
-              {/* Add other product requirements here */}
-            </ul>
-            <button onClick={handleClosePopup}>Close</button>
+          <div className="popup-container">
+            {/* Close Button */}
+            <button className="close-button" onClick={handleClosePopup}>X</button>
+
+            <div className="popup-content">
+              {/* Left Section: Product Image & Thumbnails */}
+              <div className="product-details">
+                <img src={images[selectedProduct.image_key]} alt={selectedProduct.name} className="main-product-image" />
+                <div className="image-thumbnails">
+                  {JSON.parse(selectedProduct.images).map((imgKey, index) => (
+                    <img 
+                      key={index} 
+                      src={images[imgKey]} 
+                      alt="Thumbnail" 
+                      onClick={() => setSelectedProduct({ ...selectedProduct, image_key: imgKey })} 
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Section: AI Insights & Add to Cart */}
+              <div className="product-info">
+                <h2>{selectedProduct.name}</h2>
+                <div className="ai-insights">
+                  <h3>AI Insights</h3>
+                  <p>{generateAIInsight()}</p>
+                </div>
+                <button className="add-to-cart">Add to Cart</button>
+              </div>
+            </div>
+
+            {/* Similar Products */}
+            <div className="similar-products">
+              <h3>Similar Products</h3>
+              <div className="product-banner">
+                {similarProducts.map(similar => (
+                  <div key={similar.id} className="product-card">
+                    <img src={images[similar.image_key]} alt={similar.name} className="product-image" />
+                    <p className="product-name">{similar.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
       )}

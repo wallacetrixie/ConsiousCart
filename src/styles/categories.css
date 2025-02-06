@@ -214,29 +214,120 @@
 }
 
 
+/* Full-Screen Popup Overlay */
 .popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
 }
 
-.popup-content {
+/* Popup Container */
+.popup-container {
   background-color: white;
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
   padding: 20px;
-  border-radius: 5px;
-  width: 300px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: red;
+  color: white;
+  border: none;
+  font-size: 18px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 50%;
 }
 
-button {
-  padding: 10px 20px;
+.close-button:hover {
+  background: darkred;
+}
+
+/* Popup Content */
+.popup-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Left: Product Image */
+.product-details {
+  flex: 1;
+}
+
+.main-product-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Image Thumbnails */
+.image-thumbnails {
+  display: flex;
+  justify-content: center;
   margin-top: 10px;
+}
+
+.image-thumbnails img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  margin: 5px;
   cursor: pointer;
+  border-radius: 5px;
+  transition: transform 0.3s;
+}
+
+.image-thumbnails img:hover {
+  transform: scale(1.1);
+}
+
+/* Right: Product Info */
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* AI Insights */
+.ai-insights {
+  background: #f4f4f4;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Add to Cart */
+.add-to-cart {
+  background-color: orange;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.add-to-cart:hover {
+  background-color: rgb(253, 177, 35);
 }

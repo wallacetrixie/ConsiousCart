@@ -13,8 +13,8 @@ function App() {
 
 
       {/* Navbar is outside Routes so it stays on all pages */}
-      <Navbar />
-      <Banner />
+      {/* <Navbar />
+      <Banner /> */}
       <Categories/>
      
 
