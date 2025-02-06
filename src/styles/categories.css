@@ -241,18 +241,23 @@
   flex-direction: column;
   overflow-y: auto;
 }
-/* Close Button */
+/* Close Button - Fixed to Top Right */
 .close-button {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
   background: red;
   color: white;
   border: none;
   font-size: 18px;
-  padding: 8px 12px;
-  cursor: pointer;
+  font-weight: bold;
   border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .close-button:hover {
@@ -330,4 +335,54 @@
 
 .add-to-cart:hover {
   background-color: rgb(253, 177, 35);
+}
+/* Similar Products Section */
+.similar-products {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.similar-products h3 {
+  position:relative;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* Similar Products Banner - 2 Columns x 2 Rows */
+.similar-products-banner {
+  display: flex;
+
+  gap: 15px;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+/* Individual Similar Product Card */
+.similar-product-card {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.similar-product-card:hover {
+  transform: scale(1.05);
+}
+
+/* Similar Product Image */
+.similar-product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Similar Product Name */
+.similar-product-name {
+  font-size: 14px;
+  margin-top: 5px;
+  font-weight: bold;
 }

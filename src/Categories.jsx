@@ -47,6 +47,16 @@ const Categories = () => {
     setSimilarProducts([]);
   };
 
+  // Handle clicking on a similar product (update main image)
+  const handleSimilarProductClick = (product) => {
+    setSelectedProduct(product);
+
+    // Fetch new similar products
+    fetch(`http://localhost:5000/api/similar-products/${product.category_id}/${product.id}`)
+      .then(res => res.json())
+      .then(setSimilarProducts);
+  };
+
   // AI Insights (Randomly Generated)
   const generateAIInsight = () => {
     const insights = [
@@ -125,14 +135,18 @@ const Categories = () => {
               </div>
             </div>
 
-            {/* Similar Products */}
+            {/* Similar Products Section */}
             <div className="similar-products">
               <h3>Similar Products</h3>
-              <div className="product-banner">
+              <div className="similar-products-banner">
                 {similarProducts.map(similar => (
-                  <div key={similar.id} className="product-card">
-                    <img src={images[similar.image_key]} alt={similar.name} className="product-image" />
-                    <p className="product-name">{similar.name}</p>
+                  <div 
+                    key={similar.id} 
+                    className="similar-product-card" 
+                    onClick={() => handleSimilarProductClick(similar)}
+                  >
+                    <img src={images[similar.image_key]} alt={similar.name} className="similar-product-image" />
+                    <p className="similar-product-name">{similar.name}</p>
                   </div>
                 ))}
               </div>
