@@ -137,6 +137,35 @@ app.get("/user", (req, res) => {
   }
 });
 
+
+//products and product details categories
+// Get all categories
+app.get("/api/categories", (req, res) => {
+    db.query("SELECT * FROM categories", (err, results) => {
+        if (err) res.status(500).send(err);
+        else res.json(results);
+    });
+});
+
+// Get products by category
+app.get("/api/products/:categoryId", (req, res) => {
+    const { categoryId } = req.params;
+    db.query("SELECT * FROM products WHERE category_id = ?", [categoryId], (err, results) => {
+        if (err) res.status(500).send(err);
+        else res.json(results);
+    });
+});
+
+// Get product details by ID
+app.get("/api/product/:id", (req, res) => {
+    const { id } = req.params;
+    db.query("SELECT * FROM products WHERE id = ?", [id], (err, result) => {
+        if (err) res.status(500).send(err);
+        else res.json(result[0]);
+    });
+});
+
+
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });
