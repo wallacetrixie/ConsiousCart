@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session");
+require("dotenv").config();
 const db = require("./config/db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -141,11 +142,12 @@ app.get("/user", (req, res) => {
 //products and product details categories
 // Get all categories
 app.get("/api/categories", (req, res) => {
-    db.query("SELECT * FROM categories", (err, results) => {
-        if (err) res.status(500).send(err);
-        else res.json(results);
-    });
+  db.query("SELECT * FROM categories ORDER BY id ASC", (err, results) => {
+    if (err) res.status(500).send(err);
+    else res.json(results);
+  });
 });
+
 
 // Get products by category
 app.get("/api/products/:categoryId", (req, res) => {

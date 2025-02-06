@@ -1,75 +1,40 @@
-import React, { useState } from "react";
-import "./styles/categories.css"; 
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaHeartbeat, FaHome, FaLeaf, FaLightbulb } from "react-icons/fa";
-import * as images from "./images"; // Import all images
-
-const categories = [
-  {
-    name: "Sustainable Groceries",
-    products: [
-      { image: images.fruits, name: "Organic Fruits" },
-      { image: images.vegies, name: "Vegetables" },
-      { image: images.drinks, name: "Healthy Drinks" },
-      { image: images.greens, name: "Green Vegetables" },
-      { image: images.grains, name: "Whole Grains" },
-      { image: images.nuts, name: "Nuts & Seeds" },
-      { image: images.dairy, name: "Dairy Alternatives" },
-      { image: images.energy, name: "Healthy proteins" },
-    ],
-  },
-  {
-    name: "Eco-Friendly Home & Kitchen",
-    products: [
-      { image: images.bamboo, name: "Bamboo Utensils" },
-      { image: images.bottle, name: "Reusable Bottle" },
-      { image: images.cleaning, name: "Eco Cleaning Supplies" },
-      { image: images.dishwasher, name: "Compostable Dishware" },
-      { image: images.compost, name: "Compost Bins" },
-      { image: images.cloth, name: "Reusable Cloths" },
-      { image: images.bags, name: "Reusable Bags" },
-      { image: images.soap, name: "Eco Soap" },
-    ],
-  },
-  {
-    name: "Health & Wellness",
-    products: [
-      { image: images.skin, name: "Organic Skincare" },
-      { image: images.herbal, name: "Herbal Supplements" },
-      { image: images.toxin, name: "Toxin-Free Personal Care" },
-      { image: images.workout, name: "Sustainable Workout Gear" },
-      { image: images.yoga, name: "Yoga Mats" },
-      { image: images.vitamins, name: "Vitamins" },
-      { image: images.oils, name: "Essential Oils" },
-      { image: images.supplements, name: "Natural Supplements" },
-    ],
-  },
-  {
-    name: "Smart & Sustainable Tech",
-    products: [
-      { image: images.laptop, name: "Eco-Friendly laptops" },
-      { image: images.solar, name: "Solar Panels" },
-      { image: images.charger, name: "Solar Chargers" },
-      { image: images.thermostat, name: "Smart Thermostats" },
-      { image: images.bulbs, name: "LED Bulbs" },
-      { image: images.speakers, name: "Eco Speakers" },
-      { image: images.headphones, name: "Eco Headphones" },
-      { image: images.smartwatch, name: "Smart Watches" },
-    ],
-  },
-];
+import "./styles/categories.css";
+import * as images from "./images"; 
 
 const Categories = () => {
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [products, setProducts] = useState([]);
+
+  // Fetch categories from backend
+  useEffect(() => {
+    fetch("http://localhost:5000/api/categories")
+      .then(res => res.json())
+      .then(data => {
+        setCategories(data);
+        setSelectedCategory(data[0]); // Set first category as default
+      });
+  }, []);
+
+  // Fetch products when category changes
+  useEffect(() => {
+    if (selectedCategory) {
+      fetch(`http://localhost:5000/api/products/${selectedCategory.id}`)
+        .then(res => res.json())
+        .then(setProducts);
+    }
+  }, [selectedCategory]);
 
   return (
     <div className="categories-container">
       {/* Category Selection */}
       <div className="category-list">
-        {categories.map((category, index) => (
+        {categories.map(category => (
           <button
-            key={index}
-            className={`category-item ${selectedCategory.name === category.name ? "active" : ""}`}
+            key={category.id}
+            className={`category-item ${selectedCategory?.id === category.id ? "active" : ""}`}
             onClick={() => setSelectedCategory(category)}
           >
             {category.name}
@@ -77,13 +42,13 @@ const Categories = () => {
         ))}
       </div>
 
-      {/* Product Display (Dynamic Banner) */}
+      {/* Product Display */}
       <div className="product-banner">
-        {selectedCategory.products.map((product, index) => (
-          <div key={index} className="product-card">
-            <img src={product.image} alt={product.name} className="product-image" />
+        {products.map(product => (
+          <div key={product.id} className="product-card">
+            <img src={images[product.image_key]} alt={product.name} className="product-image" />
             <p className="product-name">{product.name}</p>
-         <Link to={`/product/${product.id}`} className="view-more">View more</Link>
+            <Link to={`/product/${product.id}`} className="view-more">View more</Link>
           </div>
         ))}
       </div>
