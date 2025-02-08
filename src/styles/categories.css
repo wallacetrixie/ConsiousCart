@@ -424,7 +424,7 @@
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  
 }
 
 
@@ -432,18 +432,9 @@
 .product-name {
   font-size: 1.1em;
   font-weight: bold;
+  
 }
 
-.product-rating {
-  display: flex;
-  justify-content: center;
-  margin: 5px 0;
-}
-
-.star {
-  color: gold;
-  font-size: 18px;
-}
 
 .product-price {
   font-size: 1.2em;

@@ -10,7 +10,6 @@ const Categories = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [similarProducts, setSimilarProducts] = useState([]);
 
-  // Fetch categories from backend
   useEffect(() => {
     fetch("http://localhost:5000/api/categories")
       .then((res) => res.json())
@@ -20,7 +19,6 @@ const Categories = () => {
       });
   }, []);
 
-  // Fetch products when category changes
   useEffect(() => {
     if (selectedCategory) {
       fetch(`http://localhost:5000/api/products/${selectedCategory.id}`)
@@ -29,48 +27,27 @@ const Categories = () => {
     }
   }, [selectedCategory]);
 
-  // Handle opening the popup
   const handleViewMore = (product) => {
     setSelectedProduct(product);
     setShowPopup(true);
 
-    // Fetch similar products
     fetch(`http://localhost:5000/api/similar-products/${product.category_id}/${product.id}`)
       .then(res => res.json())
       .then(setSimilarProducts);
   };
 
-  // Handle closing the popup
   const handleClosePopup = () => {
     setShowPopup(false);
     setSelectedProduct(null);
     setSimilarProducts([]);
   };
 
-  // Handle clicking on a similar product (update main image)
   const handleSimilarProductClick = (product) => {
     setSelectedProduct(product);
-
-    // Fetch new similar products
-    fetch(`http://localhost:5000/api/similar-products/${product.category_id}/${product.id}`)
-      .then(res => res.json())
-      .then(setSimilarProducts);
-  };
-
-  // AI Insights (Randomly Generated)
-  const generateAIInsight = () => {
-    const insights = [
-      "This product is made from 100% organic ingredients.",
-      "A sustainable option that reduces environmental impact.",
-      "Rich in essential vitamins and nutrients.",
-      "Eco-friendly and designed for long-term use."
-    ];
-    return insights[Math.floor(Math.random() * insights.length)];
   };
 
   return (
     <div className="categories-container">
-      {/* Category Selection */}
       <div className="category-list">
         {categories.map((category) => (
           <button
@@ -83,7 +60,6 @@ const Categories = () => {
         ))}
       </div>
 
-      {/* Product Display */}
       <div className="product-banner">
         {products.map((product) => (
           <div key={product.id} className="product-card">
@@ -91,9 +67,10 @@ const Categories = () => {
               src={images[product.image_key]}
               alt={product.name}
               className="product-image"
-              onClick={() => handleViewMore(product)} 
+              onClick={() => handleViewMore(product)}
             />
             <p className="product-name">{product.name}</p>
+            <p className="product-price">Ksh {product.price}</p>
             <button className="view-more" onClick={() => handleViewMore(product)}>
               View more
             </button>
@@ -101,41 +78,23 @@ const Categories = () => {
         ))}
       </div>
 
-      {/* Full-Screen Product Popup */}
       {showPopup && selectedProduct && (
         <div className="popup-overlay">
           <div className="popup-container">
-            {/* Close Button */}
             <button className="close-button" onClick={handleClosePopup}>X</button>
 
             <div className="popup-content">
-              {/* Left Section: Product Image & Thumbnails */}
               <div className="product-details">
                 <img src={images[selectedProduct.image_key]} alt={selectedProduct.name} className="main-product-image" />
-                <div className="image-thumbnails">
-                  {JSON.parse(selectedProduct.images).map((imgKey, index) => (
-                    <img 
-                      key={index} 
-                      src={images[imgKey]} 
-                      alt="Thumbnail" 
-                      onClick={() => setSelectedProduct({ ...selectedProduct, image_key: imgKey })} 
-                    />
-                  ))}
-                </div>
               </div>
-
-              {/* Right Section: AI Insights & Add to Cart */}
+              
               <div className="product-info">
                 <h2>{selectedProduct.name}</h2>
-                <div className="ai-insights">
-                  <h3>AI Insights</h3>
-                  <p>{generateAIInsight()}</p>
-                </div>
+                <p className="product-price">Ksh {selectedProduct.price}</p>
                 <button className="add-to-cart">Add to Cart</button>
               </div>
             </div>
 
-            {/* Similar Products Section */}
             <div className="similar-products">
               <h3>Similar Products</h3>
               <div className="similar-products-banner">
@@ -147,6 +106,7 @@ const Categories = () => {
                   >
                     <img src={images[similar.image_key]} alt={similar.name} className="similar-product-image" />
                     <p className="similar-product-name">{similar.name}</p>
+                    <p className="similar-product-price">Ksh {similar.price}</p>
                   </div>
                 ))}
               </div>
