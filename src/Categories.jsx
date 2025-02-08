@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./styles/categories.css";
 import * as images from "./images";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -27,10 +29,14 @@ const Categories = () => {
     }
   }, [selectedCategory]);
 
+  const generateRandomRating = () => {
+    const rating = Math.floor(Math.random() * 2 + 3);
+    return Array(rating).fill(<FontAwesomeIcon icon={faStar} className="star-icon" />);
+  };
+
   const handleViewMore = (product) => {
     setSelectedProduct(product);
     setShowPopup(true);
-
     fetch(`http://localhost:5000/api/similar-products/${product.category_id}/${product.id}`)
       .then(res => res.json())
       .then(setSimilarProducts);
@@ -69,8 +75,11 @@ const Categories = () => {
               className="product-image"
               onClick={() => handleViewMore(product)}
             />
-            <p className="product-name">{product.name}</p>
-            <p className="product-price">Ksh {product.price}</p>
+            <div className="product-details">
+              <p className="product-name">{product.name}</p>
+              <p className="product-price">Ksh {product.price}</p>
+              <div className="product-rating">{generateRandomRating()}</div>
+            </div>
             <button className="view-more" onClick={() => handleViewMore(product)}>
               View more
             </button>
@@ -91,6 +100,7 @@ const Categories = () => {
               <div className="product-info">
                 <h2>{selectedProduct.name}</h2>
                 <p className="product-price">Ksh {selectedProduct.price}</p>
+                <div className="product-rating">{generateRandomRating()}</div>
                 <button className="add-to-cart">Add to Cart</button>
               </div>
             </div>
@@ -107,11 +117,11 @@ const Categories = () => {
                     <img src={images[similar.image_key]} alt={similar.name} className="similar-product-image" />
                     <p className="similar-product-name">{similar.name}</p>
                     <p className="similar-product-price">Ksh {similar.price}</p>
+                    <div className="product-rating">{generateRandomRating()}</div>
                   </div>
                 ))}
               </div>
             </div>
-
           </div>
         </div>
       )}
