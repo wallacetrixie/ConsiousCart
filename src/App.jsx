@@ -20,7 +20,7 @@ function App() {
 
       <Routes>
         {/* Home Page - Shows Banner below Navbar */}
-        <Route path="/" element={<ProductDetails/>} />
+        <Route path="/" element={<Categories/>} />
       
        
 
