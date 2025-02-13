@@ -465,3 +465,29 @@
   color: #f39c12;
   margin-right: 3px;
 }
+@media (max-width: 768px) {
+  .product-banner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+   .product-image {
+    height: 140px; 
+  }
+   .categories-container {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-banner {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+    
+  }
+  .categories-container {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  
+}
