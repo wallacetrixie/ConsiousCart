@@ -13,14 +13,15 @@ function App() {
 
 
       {/* Navbar is outside Routes so it stays on all pages */}
-      {/* <Navbar />
-      <Banner /> */}
-      <Categories/>
+      <Navbar />
+      <Banner />
+      <Categories />
+    
      
 
       <Routes>
         {/* Home Page - Shows Banner below Navbar */}
-        <Route path="/" element={<Categories/>} />
+       
       
        
 
