@@ -40,34 +40,36 @@ const ProductDetails = () => {
     if (!product) return <div className="error">Product not found.</div>;
 
     return (
-        <div className="product-details-container">
-            <div className="product-image">
-                <img src={images[product.image_key] || images.placeholder} alt={product.name} />
-            </div>
-            
-            <div className="product-info">
-                <h1>{product.name}</h1>
-                <p className="product-description">{product.description}</p>
-                
-                <p className="product-price">
-                    {product.originalPrice && (
-                        <span className="original-price">Ksh {product.originalPrice}</span>
-                    )}
-                    <span className="discounted-price">Ksh {product.price * quantity}</span>
-                </p>
-
-                <p className="shipping-info"><strong>Shipping Info:</strong> {product.shipping_info}</p>
-                
-                <div className="quantity-selector">
-                    <button onClick={handleDecrease} disabled={quantity === 1}>-</button>
-                    <span>{quantity}</span>
-                    <button onClick={handleIncrease}>+</button>
+        <div className="product-details-wrapper">
+            <div className="product-details-container">
+                <div className="product-image">
+                    <img src={images[product.image_key] || images.placeholder} alt={product.name} />
                 </div>
+                
+                <div className="product-info">
+                    <h1>{product.name}</h1>
+                    <p className="product-description">{product.description}</p>
+                    
+                    <p className="product-price">
+                        {product.originalPrice && (
+                            <span className="original-price">Ksh {product.originalPrice}</span>
+                        )}
+                        <span className="discounted-price">Ksh {product.price * quantity}</span>
+                    </p>
 
-                <button className="add-to-cart">Add to Cart</button>
+                    <p className="shipping-info"><strong>Shipping Info:</strong> {product.shipping_info}</p>
+                    
+                    <div className="quantity-selector">
+                        <button onClick={handleDecrease} disabled={quantity === 1}>-</button>
+                        <span>{quantity}</span>
+                        <button onClick={handleIncrease}>+</button>
+                    </div>
+
+                    <button className="add-to-cart">Add to Cart</button>
+                </div>
             </div>
 
-            <div className="similar-products-container">
+            <div className="similar-products-section">
                 <h2>Similar Products</h2>
                 <div className="similar-products-list">
                     {similarProducts.map(similar => (
