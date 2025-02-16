@@ -179,6 +179,25 @@ app.get("/api/similar-products/:categoryId/:productId", (req, res) => {
   );
 });
 
+app.get("/products", async (req, res) => {
+  try {
+    const [products] = await db.query("SELECT id, name, image_key, images, category_id, description, shipping_info, social_media_sharing FROM products");
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching products" });
+  }
+});
+app.put("/products/:id/social-media", async (req, res) => {
+  const { id } = req.params;
+  const { socialMediaLink } = req.body;
+  
+  try {
+    await db.query("UPDATE products SET social_media_sharing = ? WHERE id = ?", [socialMediaLink, id]);
+    res.json({ message: "Social media sharing link updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Error updating social media link" });
+  }
+});
 
 
 app.listen(5000, () => {

@@ -1,40 +1,45 @@
 .product-details-container {
-display:flex;
-
-  padding: 40px;
-  max-width: 1200px;
-  height: auto;
+  display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
-  gap:20px;
-  background-color: rgb(255, 255, 255);
+  gap: 20px;
+  max-width: 1200px;
   margin: auto;
-
+  padding: 40px;
+  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.product-details-container img {
-  width: 400px;
-  height: 500px;
-  object-fit:cover;
-  
- 
+.product-image {
+  flex: 1;
+  min-width: 350px;
+  height:auto;
+}
+
+.product-image img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-
 .product-info {
-
-  max-width:400px;
-  text-align: left;
-
+  flex: 1;
+  min-width: 350px;
 }
 
 .product-info h1 {
   font-size: 28px;
-  color: #646363;
+  color: #444;
   margin-bottom: 10px;
+}
+
+.product-description {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 15px;
 }
 
 .product-price {
@@ -50,13 +55,12 @@ display:flex;
 
 .discounted-price {
   font-weight: bold;
-
+  color: #e63946;
 }
 
 .quantity-selector {
   display: flex;
   align-items: center;
- 
   gap: 10px;
   margin-top: 15px;
 }
@@ -64,16 +68,21 @@ display:flex;
 .quantity-selector button {
   width: 35px;
   height: 35px;
-  color:rgb(107, 107, 107);
+  color: rgb(107, 107, 107);
   font-size: 18px;
   border: solid 2px;
-  background-color:white;
+  background-color: white;
   cursor: pointer;
   transition: 0.3s;
   border-radius: 5px;
 }
 
-.quantity-selector button:hover {
+.quantity-selector button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quantity-selector button:hover:not(:disabled) {
   background-color: #ddd;
 }
 
@@ -81,7 +90,7 @@ display:flex;
   display: block;
   margin-top: 20px;
   padding: 12px;
-  background-color:black;
+  background-color: black;
   color: white;
   border: none;
   cursor: pointer;
@@ -90,6 +99,9 @@ display:flex;
   transition: 0.3s;
 }
 
+.add-to-cart:hover {
+  background-color: #333;
+}
 
 .loading,
 .error {
