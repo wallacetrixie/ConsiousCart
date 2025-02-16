@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import * as images from "./images";
 import "./styles/productDetails.css";
 
 const ProductDetails = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [product, setProduct] = useState(null);
+    const [similarProducts, setSimilarProducts] = useState([]);
     const [quantity, setQuantity] = useState(1);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -19,7 +21,10 @@ const ProductDetails = () => {
             .then((data) => {
                 setProduct(data);
                 setLoading(false);
+                return fetch(`http://localhost:5000/api/similar-products/${data.category_id}/${id}`);
             })
+            .then((res) => res.json())
+            .then(setSimilarProducts)
             .catch((err) => {
                 setError(err.message);
                 setLoading(false);
@@ -28,6 +33,7 @@ const ProductDetails = () => {
 
     const handleIncrease = () => setQuantity((prev) => prev + 1);
     const handleDecrease = () => setQuantity((prev) => Math.max(prev - 1, 1));
+    const handleProductClick = (productId) => navigate(`/product/${productId}`);
 
     if (loading) return <div className="loading">Loading product details...</div>;
     if (error) return <div className="error">{error}</div>;
@@ -50,6 +56,8 @@ const ProductDetails = () => {
                     <span className="discounted-price">Ksh {product.price * quantity}</span>
                 </p>
 
+                <p className="shipping-info"><strong>Shipping Info:</strong> {product.shipping_info}</p>
+                
                 <div className="quantity-selector">
                     <button onClick={handleDecrease} disabled={quantity === 1}>-</button>
                     <span>{quantity}</span>
@@ -57,6 +65,19 @@ const ProductDetails = () => {
                 </div>
 
                 <button className="add-to-cart">Add to Cart</button>
+            </div>
+
+            <div className="similar-products-container">
+                <h2>Similar Products</h2>
+                <div className="similar-products-list">
+                    {similarProducts.map(similar => (
+                        <div key={similar.id} className="similar-product-card" onClick={() => handleProductClick(similar.id)}>
+                            <img src={images[similar.image_key]} alt={similar.name} className="similar-product-image" />
+                            <p className="similar-product-name">{similar.name}</p>
+                            <p className="similar-product-price">Ksh {similar.price}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
