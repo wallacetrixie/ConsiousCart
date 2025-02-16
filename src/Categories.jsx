@@ -59,17 +59,15 @@ const Categories = () => {
             <img
               src={images[product.image_key]}
               alt={product.name}
-              className="product-image"
+              className="productImage"
               onClick={() => handleViewMore(product)}
             />
             <div className="product-details">
-              <p className="product-name">{product.name}</p>
-              <p className="product-price">Ksh {product.price}</p>
+              <p className="productName">{product.name}</p>
+              <p className="productPrice">Ksh {product.price}</p>
               <div className="product-rating">{generateRandomRating()}</div>
             </div>
-            <button className="view-more" onClick={() => handleViewMore(product)}>
-              View more
-            </button>
+         
           </div>
         ))}
       </div>

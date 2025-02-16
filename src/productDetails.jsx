@@ -49,6 +49,7 @@ const ProductDetails = () => {
                 <div className="product-info">
                     <h1>{product.name}</h1>
                     <p className="product-description">{product.description}</p>
+                    <p className="shipping-info"><strong>Shipping Info:</strong> {product.shipping_info}</p>
                     
                     <p className="product-price">
                         {product.originalPrice && (
@@ -57,7 +58,7 @@ const ProductDetails = () => {
                         <span className="discounted-price">Ksh {product.price * quantity}</span>
                     </p>
 
-                    <p className="shipping-info"><strong>Shipping Info:</strong> {product.shipping_info}</p>
+                  
                     
                     <div className="quantity-selector">
                         <button onClick={handleDecrease} disabled={quantity === 1}>-</button>
@@ -70,7 +71,7 @@ const ProductDetails = () => {
             </div>
 
             <div className="similar-products-section">
-                <h2>Similar Products</h2>
+                <h2>You may also like</h2>
                 <div className="similar-products-list">
                     {similarProducts.map(similar => (
                         <div key={similar.id} className="similar-product-card" onClick={() => handleProductClick(similar.id)}>
