@@ -11,21 +11,9 @@ function App() {
   return (
     <Router>
 
-
-      {/* Navbar is outside Routes so it stays on all pages */}
-      <Navbar />
-      <Banner />
-      <Categories />
-    
-     
-
       <Routes>
-        {/* Home Page - Shows Banner below Navbar */}
-       
-      
-       
-
-        {/* Other Routes */}
+      <Route path="/" element={<Categories />} />
+      <Route path="/product/:id" element={<ProductDetails />} />
     
       </Routes>
     </Router>

@@ -255,7 +255,7 @@
 }
 
 
-/* Popup Overlay */
+/* Full-Screen Popup Overlay */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -267,32 +267,32 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  animation: fadeIn 0.3s ease-in-out;
+
 }
 
 /* Popup Container */
 .popup-container {
   background-color: white;
   width: 90%;
-  max-width: 800px;
+  height: 90%;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
-  animation: slideIn 0.3s ease-in-out;
-}
 
-/* Close Button */
+}
+/* Close Button - Fixed to Top Right */
 .close-button {
   position: absolute;
   top: 15px;
   right: 15px;
   width: 40px;
   height: 40px;
+  background: red;
+  color: white;
   border: none;
   font-size: 18px;
   font-weight: bold;

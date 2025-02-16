@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./styles/categories.css";
+import { useNavigate } from "react-router-dom";
 import * as images from "./images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -91,12 +92,8 @@ const Categories = () => {
         <div className="popup-overlay">
           <div className="popup-container">
             <button className="close-button" onClick={handleClosePopup}>X</button>
-
-            <div className="popup-content">
-              <div className="product-details">
-                <img src={images[selectedProduct.image_key]} alt={selectedProduct.name} className="main-product-image" />
-              </div>
-              
+            <div className="product-details">
+              <img src={images[selectedProduct.image_key]} alt={selectedProduct.name} className="main-product-image" />
               <div className="product-info">
                 <h2>{selectedProduct.name}</h2>
                 <p className="product-price">Ksh {selectedProduct.price}</p>
@@ -104,7 +101,6 @@ const Categories = () => {
                 <button className="add-to-cart">Add to Cart</button>
               </div>
             </div>
-
             <div className="similar-products">
               <h3>Similar Products</h3>
               <div className="similar-products-banner">
