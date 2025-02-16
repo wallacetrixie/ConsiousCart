@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./styles/categories.css";
 import { useNavigate } from "react-router-dom";
+import "./styles/categories.css";
 import * as images from "./images";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -9,9 +9,8 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [products, setProducts] = useState([]);
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [similarProducts, setSimilarProducts] = useState([]);
+
+  const navigate = useNavigate(); // React Router navigation
 
   useEffect(() => {
     fetch("http://localhost:5000/api/categories")
@@ -35,22 +34,9 @@ const Categories = () => {
     return Array(rating).fill(<FontAwesomeIcon icon={faStar} className="star-icon" />);
   };
 
+  // Navigate to product details page
   const handleViewMore = (product) => {
-    setSelectedProduct(product);
-    setShowPopup(true);
-    fetch(`http://localhost:5000/api/similar-products/${product.category_id}/${product.id}`)
-      .then(res => res.json())
-      .then(setSimilarProducts);
-  };
-
-  const handleClosePopup = () => {
-    setShowPopup(false);
-    setSelectedProduct(null);
-    setSimilarProducts([]);
-  };
-
-  const handleSimilarProductClick = (product) => {
-    setSelectedProduct(product);
+    navigate(`/product/${product.id}`);
   };
 
   return (
@@ -87,40 +73,6 @@ const Categories = () => {
           </div>
         ))}
       </div>
-
-      {showPopup && selectedProduct && (
-        <div className="popup-overlay">
-          <div className="popup-container">
-            <button className="close-button" onClick={handleClosePopup}>X</button>
-            <div className="product-details">
-              <img src={images[selectedProduct.image_key]} alt={selectedProduct.name} className="main-product-image" />
-              <div className="product-info">
-                <h2>{selectedProduct.name}</h2>
-                <p className="product-price">Ksh {selectedProduct.price}</p>
-                <div className="product-rating">{generateRandomRating()}</div>
-                <button className="add-to-cart">Add to Cart</button>
-              </div>
-            </div>
-            <div className="similar-products">
-              <h3>Similar Products</h3>
-              <div className="similar-products-banner">
-                {similarProducts.map(similar => (
-                  <div 
-                    key={similar.id} 
-                    className="similar-product-card" 
-                    onClick={() => handleSimilarProductClick(similar)}
-                  >
-                    <img src={images[similar.image_key]} alt={similar.name} className="similar-product-image" />
-                    <p className="similar-product-name">{similar.name}</p>
-                    <p className="similar-product-price">Ksh {similar.price}</p>
-                    <div className="product-rating">{generateRandomRating()}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
