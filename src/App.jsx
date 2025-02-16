@@ -10,7 +10,8 @@ import ProductDetails from './productDetails.jsx';
 function App() {
   return (
     <Router>
-
+    <Navbar></Navbar>
+  
       <Routes>
       <Route path="/" element={<Categories />} />
       <Route path="/product/:id" element={<ProductDetails />} />

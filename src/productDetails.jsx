@@ -37,9 +37,9 @@ const ProductDetails = () => {
 
     return (
         <div className="product-details-container">
-            <div className="product-image">
-            <img src={images[product.image_key]} alt={product.name} className="product-image" />
-            </div>
+           
+                <img src={images[product.image_key]} alt={product.name} />
+          
             <div className="product-info">
                 <h1>{product.name}</h1>
                 <p className="product-price">
@@ -60,37 +60,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-// import React, { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import * as images from "./images"; // Ensure images are imported
-
-// const ProductDetails = () => {
-//   const { id } = useParams();
-//   const [product, setProduct] = useState(null);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     fetch(`http://localhost:5000/api/product/${id}`)
-//       .then((res) => res.json())
-//       .then((data) => {
-//         setProduct(data);
-//         setLoading(false);
-//       })
-//       .catch(() => setLoading(false));
-//   }, [id]);
-
-//   if (loading) return <p>Loading product details...</p>;
-//   if (!product) return <p>Product not found.</p>;
-
-//   return (
-//     <div className="product-details-page">
-//       <img src={images[product.image_key]} alt={product.name} className="product-image" />
-//       <h2>{product.name}</h2>
-//       <p>Price: Ksh {product.price}</p>
-//       <p>{product.description}</p>
-//       <button className="add-to-cart">Add to Cart</button>
-//     </div>
-//   );
-// };
-
-// export default ProductDetails;
