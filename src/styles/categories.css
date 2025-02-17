@@ -131,30 +131,6 @@
 
 
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .category-list {
-    gap: 20px;
-  }
-
-  .product-banner {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-  }
-
-  .categories-container {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-
-  .product-card {
-    padding: 10px;
-  }
-
-  .product-image {
-    height: 150px;
-  }
-}
 
 @media (max-width: 768px) {
   .category-list {
