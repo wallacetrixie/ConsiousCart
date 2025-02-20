@@ -21,7 +21,7 @@ function App() {
       <Route path="/tasks" element={<Tasks />} />
       <Route path="/ai" element={<AIChat />} />
       <Route path="/banner" element={<Banner />} />
-      <Route path="/checkout" element={<CheckoutRegistration />} />
+      <Route path="/CheckoutRegistration" element={<CheckoutRegistration />} />
       <Route path="/CartDetails" element={<CartDetails />} />
       <Route path="/product/:id" element={<ProductDetails />} />
       
