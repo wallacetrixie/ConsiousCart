@@ -80,7 +80,7 @@ const ProductDetails = () => {
                     </div>
 
                     <button className="add-to-cart" onClick={handleAddToCart}>Add to Cart</button>
-                    {addedToCart && <div className="cart-feedback">Product Added to Cart ✅</div>}
+                    {addedToCart && <div className="cart-feedback show">Product Added to Cart ✅</div>}
                 </div>
             </div>
 

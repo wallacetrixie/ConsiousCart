@@ -8,7 +8,6 @@ const CartDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch cart items from localStorage or backend API
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(storedCart);
     setLoading(false);
@@ -29,7 +28,7 @@ const CartDetails = () => {
 
   return (
     <div className="cart-container">
-      <h1>Your Cart</h1>
+      <h1>My Cart</h1>
       <div className="cart-items">
         {cart.map((item) => (
           <div key={item.id} className="cart-item">
@@ -38,7 +37,7 @@ const CartDetails = () => {
               <h2>{item.name}</h2>
               <p>Price: Ksh {item.price}</p>
               <p>Quantity: {item.quantity}</p>
-              <button className="remove-btn" onClick={() => handleRemove(item.id)}>Remove</button>
+              <button className="remove-btn" onClick={() => handleRemove(item.id)}>Remove item</button>
             </div>
           </div>
         ))}
