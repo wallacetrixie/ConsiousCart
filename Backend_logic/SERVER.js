@@ -216,7 +216,37 @@ app.put("/products/:id/social-media", async (req, res) => {
     res.status(500).json({ error: "Error updating social media link" });
   }
 });
+app.post('/api/cart/add', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(token, SECRET_KEY);
+  const userId = decoded.id;
+  const cartItems = req.body;
 
+  if (!Array.isArray(cartItems) || cartItems.length === 0) {
+    return res.status(400).json({ success: false, message: "Cart is empty" });
+  }
+
+  const insertQuery = `
+    INSERT INTO orders (user_id, product_id, quantity, price, total_price)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+  cartItems.forEach((item) => {
+    const totalPrice = item.price * item.quantity;
+    db.query(
+      insertQuery,
+      [userId, item.id, item.quantity, item.price, totalPrice],
+      (err) => {
+        if (err) {
+          console.error("Database error:", err);
+          return res.status(500).json({ success: false, message: "Database error" });
+        }
+      }
+    );
+  });
+
+  res.status(200).json({ success: true, message: "Order placed successfully" });
+});
 
 app.listen(5000, () => {
   console.log("Server started on port 5000");

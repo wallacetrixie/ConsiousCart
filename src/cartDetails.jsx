@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./styles/cartDetails.css";
 
 const CartDetails = () => {
@@ -20,7 +21,35 @@ const CartDetails = () => {
   };
 
   const handleProceedToCheckout = () => {
-    navigate("/checkout");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+  
+    // Prepare the cart data for the backend
+    const orderData = cart.map((item) => ({
+      id: item.id,
+      quantity: item.quantity,
+      price: item.price
+    }));
+  
+    axios.post("http://localhost:5000/api/cart/add", orderData, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then((res) => {
+      if (res.data.success) {
+        alert("Order placed successfully");
+        localStorage.removeItem("cart");
+        navigate("/CheckoutRegistration");
+      } else {
+        alert("Failed to place order");
+      }
+    })
+    .catch((err) => {
+      console.error("Error adding to cart", err);
+      alert("An error occurred. Please try again.");
+    });
   };
 
   if (loading) return <div className="loading">Loading Cart...</div>;
