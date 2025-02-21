@@ -69,7 +69,7 @@ const Login = () => {
 
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
-        navigate("/tasks");
+        navigate("/Homepage");
       } else {
         setError(response.data.message || "An unexpected error occurred.");
       }

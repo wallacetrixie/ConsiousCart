@@ -33,12 +33,14 @@ app.use(
 );
 // Register Route
 app.post("/register", (req, res) => {
-  const { username, password, confirmPassword } = req.body;
+  const { name, email, phone, username, password, confirmPassword } = req.body;
+
   const isStrongPassword = (password) => {
     const strongPasswordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return strongPasswordRegex.test(password);
   };
+
   if (password !== confirmPassword) {
     return res.status(400).json({ message: "Passwords do not match" });
   }
@@ -49,8 +51,10 @@ app.post("/register", (req, res) => {
         "Password must be at least 8 characters, include uppercase, lowercase, number, and special character.",
     });
   }
-  const checkUserQuery = "SELECT * FROM users WHERE username = ?";
-  db.query(checkUserQuery, [username], async (err, result) => {
+
+  // Check for existing username or email
+  const checkUserQuery = "SELECT * FROM users WHERE username = ? OR email = ?";
+  db.query(checkUserQuery, [username, email], async (err, result) => {
     if (err) {
       return res
         .status(500)
@@ -58,27 +62,40 @@ app.post("/register", (req, res) => {
     }
 
     if (result.length > 0) {
-      return res
-        .status(400)
-        .json({ message: "Username already exists, try again" });
+      const existingUser = result[0];
+      if (existingUser.username === username) {
+        return res
+          .status(400)
+          .json({ message: "Username already exists, try again" });
+      }
+      if (existingUser.email === email) {
+        return res
+          .status(400)
+          .json({ message: "Email already registered, try another one" });
+      }
     }
+
     try {
       // Hash the password before storing
       const hashedPassword = await bcrypt.hash(password, 10);
       const insertUserQuery =
-        "INSERT INTO users (username, password) VALUES (?, ?)";
-      db.query(insertUserQuery, [username, hashedPassword], (err) => {
-        if (err) {
-          return res
-            .status(500)
-            .json({ message: "Database error", error: err.message });
+        "INSERT INTO users (name, email, phone, username, password) VALUES (?, ?, ?, ?, ?)";
+      db.query(
+        insertUserQuery,
+        [name, email, phone, username, hashedPassword],
+        (err) => {
+          if (err) {
+            return res
+              .status(500)
+              .json({ message: "Database error", error: err.message });
+          }
+          res.json({
+            success: true,
+            message: "User registered successfully",
+            redirectUrl: "/login",
+          });
         }
-        res.json({
-          success: true,
-          message: "User registered successfully",
-          redirectUrl: "/tasks",
-        });
-      });
+      );
     } catch (hashError) {
       res
         .status(500)
@@ -86,6 +103,7 @@ app.post("/register", (req, res) => {
     }
   });
 });
+
 // Login Route with Rate Limiting
 app.post("/login", loginLimiter, (req, res) => {
   const { username, password } = req.body;
