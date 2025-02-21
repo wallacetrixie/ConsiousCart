@@ -16,12 +16,12 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/ai" element={<AIChat />} />
-        <Route path="/product/:id" element={<><Homepage /><ProductDetails /></>} />
         <Route path="/CheckoutRegistration" element={<CheckoutRegistration />} />
-        <Route path="/CartDetails" element={<><Homepage /><CartDetails /></>} />
+        <Route path="/CartDetails" element={<CartDetails />} />
         <Route path="/Homepage" element={
           isLoggedIn ? <Homepage /> : <Navigate to="/Login" />
         } />
+        <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/" element={<Navigate to="/Login" />} />
         <Route path="*" element={<Navigate to="/Login" />} />
       </Routes>
