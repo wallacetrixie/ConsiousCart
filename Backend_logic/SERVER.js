@@ -108,7 +108,7 @@ app.post("/login", loginLimiter, (req, res) => {
       success: true,
       token,
       message: "Login successful",
-      redirectUrl: "/tasks",
+      redirectUrl: "/Categories",
     });
   });
 });
