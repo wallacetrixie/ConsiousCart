@@ -79,3 +79,62 @@
     background: #218838;
   }
   
+
+
+  .payment-section {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  .payment-title {
+    color: #1A6EFF;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .payment-description {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .mpesa-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  
+  .mpesa-input:focus {
+    border-color: #1A6EFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(26, 110, 255, 0.3);
+  }
+  
+  .mpesa-btn {
+    background-color: #1A6EFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .mpesa-btn:hover {
+    background-color: #0047cc;
+  }
+  
+  .mpesa-btn:active {
+    background-color: #003399;
+  }
+  

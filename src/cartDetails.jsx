@@ -124,17 +124,20 @@ const CartDetails = () => {
 
       {/* Payment Section - Shown After Checkout */}
       { showPayment && (
-        <div className="payment-section">
-          <h2>Payment Method</h2>
-          <input 
-            type="text" 
-            placeholder="Enter M-Pesa Phone Number" 
-            value={phone} 
-            onChange={(e) => setPhone(e.target.value)} 
-          />
-          <button onClick={handlePayment}>Pay with M-Pesa</button>
-        </div>
-      )}
+  <div className="payment-section">
+    <h2 className="payment-title">Lipa na M-Pesa</h2>
+    <p className="payment-description">Enter your M-Pesa phone number to complete the payment.</p>
+    <input 
+      type="text" 
+      placeholder="Enter M-Pesa Phone Number" 
+      value={phone} 
+      onChange={(e) => setPhone(e.target.value)} 
+      className="mpesa-input"
+    />
+    <button onClick={handlePayment} className="mpesa-btn">Pay with M-Pesa</button>
+  </div>
+)}
+
     </div>
   );
 };

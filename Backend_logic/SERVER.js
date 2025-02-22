@@ -273,6 +273,95 @@ app.get('/api/mpesa/token', async (req, res) => {
   }
 });
 
+const moment = require('moment');
+
+app.post('/api/mpesa/stkpush', async (req, res) => {
+  const { phone, amount } = req.body;
+
+  try {
+    // Get access token
+    const tokenResponse = await axios.get('http://localhost:5000/api/mpesa/token');
+    const accessToken = tokenResponse.data.access_token;
+
+    // Generate Timestamp and Password
+    const timestamp = moment().format('YYYYMMDDHHmmss');
+    const password = Buffer.from(
+      `${process.env.SHORTCODE}${process.env.PASSKEY}${timestamp}`
+    ).toString('base64');
+
+    // Prepare STK Push request payload
+    const requestBody = {
+      BusinessShortCode: process.env.SHORTCODE,
+      Password: password,
+      Timestamp: timestamp,
+      TransactionType: "CustomerPayBillOnline",
+      Amount: amount,
+      PartyA: phone,
+      PartyB: process.env.SHORTCODE,
+      PhoneNumber: phone,
+      CallBackURL: process.env.CALLBACK_URL,
+      AccountReference: "Order123",
+      TransactionDesc: "Payment for Order"
+    };
+
+    // Initiate STK Push
+    const response = await axios.post(
+      'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
+      requestBody,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error('STK Push Error:', error);
+    res.status(500).json({ error: 'Failed to initiate payment' });
+  }
+});
+app.post('/api/mpesa/callback', (req, res) => {
+  const { Body } = req.body;
+
+  if (!Body) {
+    return res.status(400).json({ message: 'Invalid callback data' });
+  }
+
+  const callbackData = Body.stkCallback;
+  const resultCode = callbackData.ResultCode;
+  const resultDesc = callbackData.ResultDesc;
+  const merchantRequestID = callbackData.MerchantRequestID;
+  const checkoutRequestID = callbackData.CheckoutRequestID;
+
+  console.log('Callback Data:', callbackData);
+
+  if (resultCode === 0) {
+    // Payment was successful
+    const amount = callbackData.CallbackMetadata.Item.find(i => i.Name === "Amount").Value;
+    const mpesaReceiptNumber = callbackData.CallbackMetadata.Item.find(i => i.Name === "MpesaReceiptNumber").Value;
+    const phoneNumber = callbackData.CallbackMetadata.Item.find(i => i.Name === "PhoneNumber").Value;
+
+    // Store payment details in the database
+    const insertPaymentQuery = `
+      INSERT INTO payments (merchantRequestID, checkoutRequestID, mpesaReceiptNumber, amount, phoneNumber, resultDesc)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `;
+    db.query(insertPaymentQuery, [merchantRequestID, checkoutRequestID, mpesaReceiptNumber, amount, phoneNumber, resultDesc], (err) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).json({ success: false, message: "Database error" });
+      }
+    });
+
+    console.log('Payment Successful:', mpesaReceiptNumber);
+  } else {
+    // Payment failed or was cancelled
+    console.log('Payment Failed:', resultDesc);
+  }
+
+  res.status(200).json({ message: 'Callback received successfully' });
+});
 
 
 app.listen(5000, () => {
