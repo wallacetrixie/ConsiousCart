@@ -19,7 +19,6 @@ const CartDetails = () => {
     setCart(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
-
   const handleProceedToCheckout = () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -29,15 +28,21 @@ const CartDetails = () => {
   
     // Prepare the cart data for the backend
     const orderData = cart.map((item) => ({
-      id: item.id,
+      product_id: item.name,               // Change 'id' to 'product_id'
       quantity: item.quantity,
-      price: item.price
+     
+      product_name: item.name,           // Add 'product_name'
+      price: item.price * item.quantity
     }));
+  
+    // Log the data being sent to the backend for debugging
+    console.log("Order Data to be Sent:", orderData);
   
     axios.post("http://localhost:5000/api/cart/add", orderData, {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then((res) => {
+      console.log("Response from Server:", res.data); // Log server response
       if (res.data.success) {
         alert("Order placed successfully");
         localStorage.removeItem("cart");
@@ -51,6 +56,7 @@ const CartDetails = () => {
       alert("An error occurred. Please try again.");
     });
   };
+  
 
   if (loading) return <div className="loading">Loading Cart...</div>;
   if (cart.length === 0) return <div className="empty-cart">Your cart is empty.</div>;

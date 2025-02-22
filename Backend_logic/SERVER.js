@@ -218,35 +218,43 @@ app.put("/products/:id/social-media", async (req, res) => {
 });
 app.post('/api/cart/add', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
-  const decoded = jwt.verify(token, SECRET_KEY);
-  const userId = decoded.id;
-  const cartItems = req.body;
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    const userId = decoded.id;
+    const cartItems = req.body;
 
-  if (!Array.isArray(cartItems) || cartItems.length === 0) {
-    return res.status(400).json({ success: false, message: "Cart is empty" });
-  }
+    // Validate the cart data
+    if (!Array.isArray(cartItems) || cartItems.length === 0) {
+      return res.status(400).json({ success: false, message: "Cart is empty" });
+    }
 
-  const insertQuery = `
-    INSERT INTO orders (user_id, product_id, quantity, price, total_price)
-    VALUES (?, ?, ?, ?, ?)
-  `;
+    const insertQuery = `
+      INSERT INTO orders (user_id,product_name,product_id, quantity, price)
+      VALUES (?, ?, ?, ?, ?)
+    `;
 
-  cartItems.forEach((item) => {
-    const totalPrice = item.price * item.quantity;
-    db.query(
-      insertQuery,
-      [userId, item.id, item.quantity, item.price, totalPrice],
-      (err) => {
-        if (err) {
-          console.error("Database error:", err);
-          return res.status(500).json({ success: false, message: "Database error" });
+    // Store each item in the orders table
+    cartItems.forEach((item) => {
+      const totalPrice = item.price * item.quantity;
+      db.query(
+        insertQuery,
+        [userId, item.product_id, item.quantity, item.price, totalPrice],
+        (err) => {
+          if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json({ success: false, message: "Database error" });
+          }
         }
-      }
-    );
-  });
+      );
+    });
 
-  res.status(200).json({ success: true, message: "Order placed successfully" });
+    res.status(200).json({ success: true, message: "Order placed successfully" });
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(401).json({ success: false, message: "Invalid token" });
+  }
 });
+
 
 app.listen(5000, () => {
   console.log("Server started on port 5000");
