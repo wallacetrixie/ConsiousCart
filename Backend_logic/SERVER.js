@@ -223,22 +223,20 @@ app.post('/api/cart/add', (req, res) => {
     const userId = decoded.id;
     const cartItems = req.body;
 
-    // Validate the cart data
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
       return res.status(400).json({ success: false, message: "Cart is empty" });
     }
 
     const insertQuery = `
-      INSERT INTO orders (user_id,product_name,product_id, quantity, price)
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO orders (user_id, product_id, product_name, quantity, price, total_price)
+      VALUES (?, ?, ?, ?, ?, ?)
     `;
 
-    // Store each item in the orders table
     cartItems.forEach((item) => {
       const totalPrice = item.price * item.quantity;
       db.query(
         insertQuery,
-        [userId, item.product_id, item.quantity, item.price, totalPrice],
+        [userId, item.product_id, item.product_name, item.quantity, item.price, totalPrice], // Added item.name
         (err) => {
           if (err) {
             console.error("Database error:", err);
@@ -254,6 +252,7 @@ app.post('/api/cart/add', (req, res) => {
     res.status(401).json({ success: false, message: "Invalid token" });
   }
 });
+
 
 
 app.listen(5000, () => {

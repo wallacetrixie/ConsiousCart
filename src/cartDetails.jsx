@@ -28,11 +28,11 @@ const CartDetails = () => {
   
     // Prepare the cart data for the backend
     const orderData = cart.map((item) => ({
-      product_id: item.name,               // Change 'id' to 'product_id'
+      product_id: item.id,
+      product_name: item.name,  // Include product name
       quantity: item.quantity,
-     
-      product_name: item.name,           // Add 'product_name'
-      price: item.price * item.quantity
+      price: item.price,
+      total_price: item.price * item.quantity
     }));
   
     // Log the data being sent to the backend for debugging
