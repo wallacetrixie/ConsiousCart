@@ -254,6 +254,26 @@ app.post('/api/cart/add', (req, res) => {
 });
 
 
+//DARAJA API INTEGRATION
+app.get('/api/mpesa/token', async (req, res) => {
+  const consumerKey = process.env.CONSUMER_KEY;
+  const consumerSecret = process.env.CONSUMER_SECRET;
+  const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString('base64');
+
+  try {
+    const response = await axios.get('https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials', {
+      headers: {
+        Authorization: `Basic ${auth}`
+      }
+    });
+    res.json({ access_token: response.data.access_token });
+  } catch (error) {
+    console.error('Error fetching token:', error);
+    res.status(500).json({ error: 'Failed to get access token' });
+  }
+});
+
+
 
 app.listen(5000, () => {
   console.log("Server started on port 5000");
