@@ -1,6 +1,8 @@
 const express = require("express");
 const session = require("express-session");
 require("dotenv").config();
+const axios = require('axios');
+
 const db = require("./config/db");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
