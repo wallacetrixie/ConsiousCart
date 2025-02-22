@@ -45,8 +45,8 @@ const CartDetails = () => {
       console.log("Response from Server:", res.data); // Log server response
       if (res.data.success) {
         alert("Order placed successfully");
-        localStorage.removeItem("cart");
-        navigate("/CheckoutRegistration");
+        // Do not remove the cart from local storage
+        // Do not redirect the user to another page
       } else {
         alert("Failed to place order");
       }
