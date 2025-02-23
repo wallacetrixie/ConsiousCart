@@ -262,18 +262,23 @@ app.get('/api/mpesa/token', async (req, res) => {
   const consumerSecret = process.env.CONSUMER_SECRET;
   const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString('base64');
 
+  console.log('Authorization Header:', `Basic ${auth}`); // Log Authorization Header
+
   try {
     const response = await axios.get('https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials', {
       headers: {
         Authorization: `Basic ${auth}`
       }
     });
+
+    console.log('Token Response:', response.data); // Log the token response
     res.json({ access_token: response.data.access_token });
   } catch (error) {
-    console.error('Error fetching token:', error);
+    console.error('Error fetching token:', error.response ? error.response.data : error.message);
     res.status(500).json({ error: 'Failed to get access token' });
   }
 });
+
 
 const moment = require('moment');
 
