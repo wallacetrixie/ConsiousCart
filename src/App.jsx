@@ -6,7 +6,7 @@ import ProductDetails from './productDetails.jsx';
 import CartDetails from './cartDetails.jsx';
 import CheckoutRegistration from './checkoutRegistration.jsx';
 import AIChat from './AiResponse.jsx';
-
+import PaymentForm from './darajaAPI.jsx';
 function App() {
   const isLoggedIn = localStorage.getItem("token");
 
@@ -15,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/Login" element={<Login />} />
         <Route path="/tasks" element={<Tasks />} />
+        <Route path="/PaymentForm" element={<PaymentForm/>} />
         <Route path="/ai" element={<AIChat />} />
         <Route path="/CheckoutRegistration" element={<CheckoutRegistration />} />
         <Route path="/CartDetails" element={<CartDetails />} />
