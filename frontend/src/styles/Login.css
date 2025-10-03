@@ -1,0 +1,134 @@
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.form-container {
+  background: white;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.form-container h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Input Group */
+.input-group {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+}
+
+.input-group input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.50rem;
+}
+
+.icon {
+  margin-right: 10px;
+  color: #666;
+  font-size: 1rem;
+}
+
+/* Password Toggle */
+.password-toggle {
+  cursor: pointer;
+  padding: 0 10px;
+  font-size: 1rem;
+  color: #007bff;
+}
+
+.password-toggle:hover {
+  color: #0056b3;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Error Message */
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+}
+
+/* Toggle Link */
+.toggle-link {
+  margin-top: 1rem;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.toggle-link:hover {
+  text-decoration: underline;
+}
+/* Subform Styles */
+.subform-container {
+  animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.input-group input {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.register-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: background 0.3s ease;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.register-btn:hover {
+  background: #218838;
+}
