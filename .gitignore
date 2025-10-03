@@ -39,3 +39,13 @@ Backend_logic/uploads/
 *.sln
 *.sw?
 Backend_logic/.env
+.vite/
+node_modules/
+dist/
+build/
+*.log
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
