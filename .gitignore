@@ -38,3 +38,4 @@ Backend_logic/uploads/
 *.njsproj
 *.sln
 *.sw?
+Backend_logic/.env
