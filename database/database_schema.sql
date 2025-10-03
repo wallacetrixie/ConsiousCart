@@ -47,11 +47,16 @@ CREATE TABLE products (
     category_id INT NOT NULL,
     image_key VARCHAR(255),
     images TEXT, -- JSON or comma-separated list of image paths
+    image_url VARCHAR(500), -- For external images (Unsplash, etc.)
     shipping_info TEXT,
     social_media_sharing VARCHAR(500),
     stock_quantity INT DEFAULT 0,
     is_organic BOOLEAN DEFAULT FALSE,
+    is_new BOOLEAN DEFAULT FALSE,
+    is_trending BOOLEAN DEFAULT FALSE,
     sustainability_rating INT DEFAULT 0, -- 1-5 rating
+    average_rating DECIMAL(3,2) DEFAULT 0.00, -- Calculated from reviews
+    total_reviews INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
@@ -149,54 +154,74 @@ CREATE TABLE wishlist (
 -- SAMPLE DATA INSERTS
 -- =============================================
 
--- Insert sample categories
+-- Insert sample categories (updated for Kenyan market)
 INSERT INTO categories (name, description, icon) VALUES
-('Sustainable Groceries', 'Organic and eco-friendly food products', 'leaf'),
-('Eco-Friendly Home & Kitchen', 'Sustainable household and kitchen items', 'home'),
-('Health & Wellness', 'Natural health and wellness products', 'heart'),
-('Smart & Sustainable Tech', 'Energy-efficient and eco-friendly technology', 'lightning');
+('Fruits & Vegetables', 'Fresh organic fruits and tropical produce', 'leaf'),
+('Fresh Vegetables', 'Locally sourced fresh vegetables', 'leaf'),
+('Dairy & Eggs', 'Fresh dairy products and free-range eggs', 'home'),
+('Grains & Cereals', 'Traditional and organic grains', 'wheat'),
+('Nuts & Seeds', 'Premium nuts and seeds from local farms', 'nut'),
+('Oils & Condiments', 'Cooking oils and natural condiments', 'bottle'),
+('Healthy Beverages', 'Natural drinks and herbal teas', 'cup'),
+('Supplements', 'Natural health supplements', 'heart'),
+('Natural Skincare', 'Organic skincare products', 'flower'),
+('Eco Cleaning', 'Environment-friendly cleaning products', 'clean');
 
--- Insert sample products (based on the image keys found in the code)
-INSERT INTO products (name, description, price, original_price, category_id, image_key, shipping_info, sustainability_rating) VALUES
--- Sustainable Groceries
-('Organic Dairy Products', 'Fresh organic milk, cheese, and yogurt', 850.00, 1000.00, 1, 'dairy', 'Free delivery within 24 hours. Keep refrigerated.', 5),
-('Fresh Organic Fruits', 'Seasonal organic fruits directly from local farms', 650.00, 750.00, 1, 'fruits', 'Same day delivery for fresh produce', 5),
-('Organic Vegetables', 'Fresh organic vegetables grown without pesticides', 450.00, 550.00, 1, 'vegies', 'Delivered fresh daily', 5),
-('Organic Grains & Cereals', 'Whole grain cereals and organic grains', 380.00, 450.00, 1, 'grains', 'Long shelf life, delivered within 3 days', 4),
-('Organic Nuts & Seeds', 'Premium quality organic nuts and seeds', 1200.00, 1400.00, 1, 'nuts', 'Vacuum sealed for freshness', 4),
-('Natural Energy Drinks', 'Organic energy drinks with natural ingredients', 320.00, 400.00, 1, 'energy', 'Best consumed fresh, 2-day delivery', 4),
-('Healthy Beverages', 'Natural and organic drink options', 280.00, 350.00, 1, 'drinks', 'Keep in cool dry place', 4),
-('Leafy Greens', 'Fresh organic leafy vegetables', 250.00, 300.00, 1, 'greens', 'Delivered fresh within 24 hours', 5),
+-- Insert Kenyan products with realistic data
+INSERT INTO products (name, description, price, original_price, category_id, image_url, stock_quantity, is_organic, is_new, is_trending, average_rating, total_reviews) VALUES
 
--- Eco-Friendly Home & Kitchen
-('Bamboo Utensils Set', 'Sustainable bamboo kitchen utensils', 890.00, 1100.00, 2, 'bamboo', 'Durable and dishwasher safe', 5),
-('Reusable Water Bottles', 'BPA-free reusable water bottles', 750.00, 900.00, 2, 'bottle', 'Leak-proof design, 5-year warranty', 5),
-('Eco-Friendly Cleaning Supplies', 'Non-toxic biodegradable cleaning products', 650.00, 800.00, 2, 'cleaning', 'Safe for families and pets', 5),
-('Organic Cotton Cloth', 'Sustainable organic cotton textiles', 1250.00, 1500.00, 2, 'cloth', 'Machine washable, long-lasting', 4),
-('Compost Bins', 'Home composting solutions', 2800.00, 3200.00, 2, 'compost', 'Easy setup, instruction manual included', 5),
-('Eco Dishwasher Tablets', 'Phosphate-free dishwasher tablets', 480.00, 600.00, 2, 'dishwasher', 'Biodegradable packaging', 4),
-('Natural Soap Bars', 'Handmade organic soap bars', 350.00, 450.00, 2, 'soap', 'Made with natural ingredients', 4),
-('Reusable Shopping Bags', 'Durable eco-friendly shopping bags', 420.00, 500.00, 2, 'bags', 'Machine washable, foldable design', 5),
+-- Fruits & Vegetables (category_id = 1)
+('Organic Avocados', 'Fresh, creamy organic avocados from Murang''a farms. Perfect for salads and toast.', 150.00, 200.00, 1, 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=300&h=250&fit=crop&q=80', 45, 1, 0, 1, 4.8, 124),
+('Mango (Tommy Atkins)', 'Sweet and juicy Tommy Atkins mangoes from Kilifi County.', 80.00, NULL, 1, 'https://images.unsplash.com/photo-1553279768-865429fa0078?w=300&h=250&fit=crop&q=80', 60, 0, 1, 0, 4.7, 89),
+('Passion Fruits (1kg)', 'Aromatic passion fruits perfect for juices and desserts.', 250.00, 300.00, 1, 'https://images.unsplash.com/photo-1594736797933-d0a9ba6ba089?w=300&h=250&fit=crop&q=80', 35, 1, 0, 1, 4.6, 67),
+('Bananas (Cooking - 1 bunch)', 'Fresh cooking bananas ideal for Kenyan traditional dishes.', 120.00, NULL, 1, 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=300&h=250&fit=crop&q=80', 80, 0, 0, 0, 4.5, 156),
+('Pineapples (Sweet Cayenne)', 'Sweet and tangy pineapples from Thika farms.', 180.00, 220.00, 1, 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=300&h=250&fit=crop&q=80', 25, 1, 0, 1, 4.8, 203),
 
--- Health & Wellness
-('Herbal Supplements', 'Natural herbal health supplements', 1850.00, 2200.00, 3, 'herbal', 'Consult healthcare provider before use', 4),
-('Essential Oils Collection', 'Pure organic essential oils', 1650.00, 2000.00, 3, 'oils', 'Store in cool, dark place', 4),
-('Natural Skincare Products', 'Organic skincare and beauty products', 1280.00, 1600.00, 3, 'skin', 'Suitable for all skin types', 4),
-('Vitamin Supplements', 'Natural vitamin and mineral supplements', 920.00, 1200.00, 3, 'vitamins', 'Take as directed by healthcare provider', 4),
-('Dietary Supplements', 'Organic dietary supplements for health', 1100.00, 1400.00, 3, 'supplements', 'Store in dry place, check expiry date', 4),
-('Toxin-Free Personal Care', 'Natural personal care products', 780.00, 950.00, 3, 'toxin', 'Free from harmful chemicals', 5),
-('Workout Equipment', 'Eco-friendly fitness equipment', 3500.00, 4200.00, 3, 'workout', 'Assembly instructions included', 3),
-('Yoga Accessories', 'Sustainable yoga mats and accessories', 2100.00, 2600.00, 3, 'yoga', 'Non-slip, eco-friendly materials', 4),
+-- Fresh Vegetables (category_id = 2)
+('Fresh Spinach Bundle', 'Nutrient-rich fresh spinach leaves, locally sourced from Kiambu.', 50.00, NULL, 2, 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=300&h=250&fit=crop&q=80', 100, 1, 1, 0, 4.6, 89),
+('Sukuma Wiki (Kales)', 'Fresh sukuma wiki (collard greens) - a Kenyan staple vegetable.', 30.00, NULL, 2, 'https://images.unsplash.com/photo-1622542796254-5b9c46ab0d2f?w=300&h=250&fit=crop&q=80', 150, 0, 0, 1, 4.4, 234),
+('Carrots (1kg)', 'Crisp and sweet carrots perfect for cooking and salads.', 100.00, 120.00, 2, 'https://images.unsplash.com/photo-1447175008436-054170c2e979?w=300&h=250&fit=crop&q=80', 75, 1, 0, 0, 4.5, 145),
+('Tomatoes (1kg)', 'Fresh, juicy tomatoes ideal for cooking and salads.', 80.00, NULL, 2, 'https://images.unsplash.com/photo-1546094096-0ec07656ac56?w=300&h=250&fit=crop&q=80', 90, 0, 0, 0, 4.3, 178),
+('Onions (1kg)', 'Quality onions essential for Kenyan cuisine.', 120.00, 150.00, 2, 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=300&h=250&fit=crop&q=80', 65, 0, 0, 0, 4.2, 98),
 
--- Smart & Sustainable Tech
-('LED Energy Bulbs', 'Energy-efficient LED lighting solutions', 450.00, 600.00, 4, 'bulbs', 'Long-lasting, low energy consumption', 5),
-('Solar Chargers', 'Portable solar phone chargers', 2800.00, 3400.00, 4, 'charger', 'Works with most devices, weather resistant', 4),
-('Eco Headphones', 'Sustainable wireless headphones', 3500.00, 4200.00, 4, 'headphones', 'High quality sound, recyclable materials', 3),
-('Eco-Friendly Laptop', 'Energy-efficient laptops with sustainable materials', 45000.00, 55000.00, 4, 'laptop', 'High performance, low power consumption', 3),
-('Smart Watches', 'Energy-efficient smart wearables', 8500.00, 11000.00, 4, 'smartwatch', 'Health tracking, long battery life', 3),
-('Solar Panel Kits', 'Home solar energy solutions', 25000.00, 32000.00, 4, 'solar', 'Professional installation recommended', 5),
-('Bluetooth Speakers', 'Eco-friendly wireless speakers', 2200.00, 2800.00, 4, 'speakers', 'Superior sound quality, sustainable design', 3),
-('Smart Thermostats', 'Energy-saving smart home thermostats', 5500.00, 7000.00, 4, 'thermostat', 'Reduces energy consumption by up to 20%', 4);
+-- Dairy & Eggs (category_id = 3)
+('Fresh Cow Milk (1L)', 'Fresh organic cow milk from local farms in Nakuru.', 60.00, NULL, 3, 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=300&h=250&fit=crop&q=80', 120, 1, 0, 1, 4.7, 156),
+('Free Range Eggs (12 pieces)', 'Fresh free-range eggs from happy hens.', 350.00, 400.00, 3, 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=300&h=250&fit=crop&q=80', 85, 1, 1, 1, 4.8, 267),
+('Natural Yogurt (500ml)', 'Creamy natural yogurt made from organic milk.', 120.00, NULL, 3, 'https://images.unsplash.com/photo-1571212515416-b01c1ee5ca75?w=300&h=250&fit=crop&q=80', 55, 1, 0, 0, 4.5, 134),
+('Fresh Cream (250ml)', 'Rich and creamy fresh cream for cooking and desserts.', 180.00, 220.00, 3, 'https://images.unsplash.com/photo-1563379091338-d3dfcb120d10?w=300&h=250&fit=crop&q=80', 40, 0, 0, 0, 4.6, 89),
+
+-- Grains & Cereals (category_id = 4)
+('White Maize Flour (2kg)', 'High-quality white maize flour for ugali and baking.', 150.00, NULL, 4, 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=300&h=250&fit=crop&q=80', 200, 0, 0, 1, 4.4, 203),
+('Brown Rice (1kg)', 'Nutritious brown rice, locally grown in Mwea.', 200.00, 250.00, 4, 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=300&h=250&fit=crop&q=80', 70, 1, 1, 0, 4.7, 167),
+('Millet Flour (1kg)', 'Nutritious millet flour perfect for porridge and baking.', 180.00, NULL, 4, 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=250&fit=crop&q=80', 60, 1, 0, 1, 4.5, 92),
+('Whole Wheat Flour (2kg)', 'Organic whole wheat flour for healthy baking.', 220.00, 280.00, 4, 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=300&h=250&fit=crop&q=80', 80, 1, 0, 0, 4.6, 134),
+
+-- Nuts & Seeds (category_id = 5)
+('Groundnuts/Peanuts (500g)', 'Fresh groundnuts from Busia County, perfect for snacking.', 250.00, 300.00, 5, 'https://images.unsplash.com/photo-1566575055726-5a5de820fe46?w=300&h=250&fit=crop&q=80', 45, 0, 0, 1, 4.5, 78),
+('Macadamia Nuts (250g)', 'Premium macadamia nuts from Murang''a farms.', 800.00, 1000.00, 5, 'https://images.unsplash.com/photo-1546618542-4d9e4f3e6f8c?w=300&h=250&fit=crop&q=80', 30, 1, 1, 1, 4.8, 145),
+('Sunflower Seeds (300g)', 'Roasted sunflower seeds, rich in nutrients.', 180.00, NULL, 5, 'https://images.unsplash.com/photo-1602542367115-6e601dd1cf74?w=300&h=250&fit=crop&q=80', 50, 1, 0, 0, 4.4, 67),
+
+-- Oils & Condiments (category_id = 6)
+('Sunflower Cooking Oil (1L)', 'Pure sunflower cooking oil for all your cooking needs.', 280.00, 320.00, 6, 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=300&h=250&fit=crop&q=80', 95, 0, 0, 0, 4.3, 234),
+('Extra Virgin Olive Oil (500ml)', 'Premium extra virgin olive oil, cold-pressed and organic.', 1200.00, 1500.00, 6, 'https://images.unsplash.com/photo-1506629905952-eb693e19a369?w=300&h=250&fit=crop&q=80', 25, 1, 1, 1, 4.8, 167),
+('Coconut Oil (500ml)', 'Pure coconut oil from coastal Kenya, perfect for cooking and skin care.', 450.00, NULL, 6, 'https://images.unsplash.com/photo-1626947337699-c4b321e9c0b6?w=300&h=250&fit=crop&q=80', 40, 1, 0, 1, 4.6, 156),
+
+-- Healthy Beverages (category_id = 7)
+('Fresh Orange Juice (1L)', 'Freshly squeezed orange juice with no added sugar.', 200.00, 250.00, 7, 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=300&h=250&fit=crop&q=80', 60, 1, 0, 1, 4.7, 192),
+('Green Tea (50 bags)', 'Premium green tea from Kericho highlands.', 350.00, NULL, 7, 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&h=250&fit=crop&q=80', 75, 1, 1, 0, 4.5, 134),
+('Baobab Powder (200g)', 'Superfood baobab powder perfect for smoothies and drinks.', 600.00, 750.00, 7, 'https://images.unsplash.com/photo-1623428454614-abaf00244e52?w=300&h=250&fit=crop&q=80', 35, 1, 1, 1, 4.8, 89),
+
+-- Supplements (category_id = 8)
+('Moringa Powder (100g)', 'Nutrient-rich moringa powder from local farms.', 400.00, 500.00, 8, 'https://images.unsplash.com/photo-1556767576-5ec22f8c4ffe?w=300&h=250&fit=crop&q=80', 50, 1, 0, 1, 4.7, 156),
+('Spirulina Tablets (60 pieces)', 'High-quality spirulina tablets for daily nutrition.', 800.00, 1000.00, 8, 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300&h=250&fit=crop&q=80', 40, 1, 1, 1, 4.6, 134),
+
+-- Natural Skincare (category_id = 9)
+('Shea Butter (200g)', 'Pure shea butter for natural skin moisturizing.', 350.00, 450.00, 9, 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=300&h=250&fit=crop&q=80', 65, 1, 0, 1, 4.8, 234),
+('Aloe Vera Gel (250ml)', 'Pure aloe vera gel for skin healing and moisturizing.', 280.00, NULL, 9, 'https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?w=300&h=250&fit=crop&q=80', 45, 1, 1, 0, 4.5, 167),
+
+-- Eco Cleaning (category_id = 10)
+('Natural Dish Soap (500ml)', 'Eco-friendly dish soap that''s gentle on hands and environment.', 180.00, 220.00, 10, 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=300&h=250&fit=crop&q=80', 85, 0, 0, 0, 4.4, 145),
+('Bamboo Cleaning Cloths (5 pack)', 'Sustainable bamboo cleaning cloths, reusable and eco-friendly.', 250.00, 300.00, 10, 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=250&fit=crop&q=80', 55, 0, 1, 1, 4.6, 89);
 
 -- =============================================
 -- INDEXES FOR BETTER PERFORMANCE
