@@ -4,30 +4,43 @@ require("dotenv").config();
 const axios = require('axios');
 
 const db = require("./config/db");
+const config = require("./config/config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const app = express();
-const SECRET_KEY = "yA%55G_9;;y7ttFFF%5VVeer547^^8gf5AAWJ88990OHHtvr5:</";
+
 // Rate Limiting for Login Attempts
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, 
-  max: 5, 
+  windowMs: parseInt(process.env.LOGIN_RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, 
+  max: parseInt(process.env.LOGIN_RATE_LIMIT_MAX_ATTEMPTS) || 5, 
   message: "Too many login attempts. Please try again later.",
 });
+
+// General Rate Limiting
+const generalLimiter = rateLimit({
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
+  message: "Too many requests from this IP, please try again later.",
+});
+
 //middleware setup
-app.use(cors());
+app.use(cors({
+  origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:5173', 'http://localhost:3000'],
+  credentials: true
+}));
 app.use(bodyParser.json());
+app.use(generalLimiter);
 app.use(
   session({
-    secret: SECRET_KEY,
+    secret: config.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true, 
-      secure: process.env.NODE_ENV === "production",
+      secure: config.NODE_ENV === "production",
       sameSite: "Strict", 
       maxAge: 3600000,
     },
@@ -123,7 +136,7 @@ app.post("/login", loginLimiter, (req, res) => {
     }
     req.session.userId = user.id;
     req.session.username = user.username;
-    const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user.id }, config.SECRET_KEY, { expiresIn: "1h" });
     res.json({
       success: true,
       token,
@@ -139,7 +152,7 @@ app.get("/user", (req, res) => {
   if (!token)
     return res.status(401).json({ success: false, message: "Unauthorized" });
   try {
-    const decoded = jwt.verify(token, SECRET_KEY);
+    const decoded = jwt.verify(token, config.SECRET_KEY);
     const findUserQuery = "SELECT username FROM users WHERE id = ?";
     db.query(findUserQuery, [decoded.id], (err, result) => {
       if (err)
@@ -221,7 +234,7 @@ app.put("/products/:id/social-media", async (req, res) => {
 app.post('/api/cart/add', (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   try {
-    const decoded = jwt.verify(token, SECRET_KEY);
+    const decoded = jwt.verify(token, config.SECRET_KEY);
     const userId = decoded.id;
     const cartItems = req.body;
 
@@ -371,6 +384,7 @@ app.post('/api/mpesa/callback', (req, res) => {
 });
 
 
-app.listen(5000, () => {
-  console.log("Server started on port 5000");
+app.listen(config.PORT, () => {
+  console.log(`Server started on port ${config.PORT}`);
+  console.log(`Environment: ${config.NODE_ENV}`);
 });
