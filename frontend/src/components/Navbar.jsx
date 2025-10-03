@@ -120,7 +120,7 @@ const Navbar = () => {
           <div className="navbar-brand" onClick={() => navigateTo('/homepage')}>
             <FaLeaf className="brand-icon" />
             <span className="brand-text">ConsiousCart</span>
-            <span className="brand-tagline">★</span>
+         
           </div>
 
           {/* Search Section */}
