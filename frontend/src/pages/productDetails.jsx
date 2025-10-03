@@ -20,6 +20,7 @@ import {
 } from "react-icons/fa";
 import * as images from "../components/images";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import "../styles/productDetails.css";
 
 const ProductDetails = () => {
@@ -527,6 +528,7 @@ const ProductDetails = () => {
                     )}
                 </div>
             </div>
+            <Footer />
         </>
     );
 };

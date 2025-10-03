@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Footer from "../components/Footer";
 import "../styles/cartDetails.css";
 
 const CartDetails = () => {
@@ -98,6 +99,7 @@ const CartDetails = () => {
   const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
   return (
+    <>
     <div className="cart-container">
       <h1>My Cart</h1>
       <div className="cart-items">
@@ -139,6 +141,8 @@ const CartDetails = () => {
 )}
 
     </div>
+    <Footer />
+    </>
   );
 };
 
